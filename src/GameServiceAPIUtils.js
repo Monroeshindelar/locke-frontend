@@ -1,15 +1,24 @@
 import axios from "axios";
-import state from "./Home/Home";
+
+var settings = {
+  name: "test",
+  generationId: 8,
+  checkpointFrequency: 2,
+  voteThreshold: 51,
+  difficultyMode: "EASY",
+  tournamentSettings: {},
+};
 
 // PUT Request for Creating a Game using Participants ID
-export const createGame = () => {
-  const data = {};
+export const createGame = (userId) => {
+  const data = settings;
   const headers = {};
+  console.log(data);
   axios
     .put(
-      `http://localhost:9292/games/squadlocke/create?participantId=<${state.ID}>`,
+      `http://localhost:9292/games/squadlocke/create?participantId=<${userId}>`,
       data,
-      { headers }
+      headers
     )
     .then((response) => {
       console.log("Status: ", response.status);
