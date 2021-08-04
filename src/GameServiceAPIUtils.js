@@ -16,7 +16,7 @@ export const createGame = (userId) => {
   console.log(data);
   axios
     .put(
-      `http://localhost:9292/games/squadlocke/create?participantId=<${userId}>`,
+      `http://localhost:9292/games/squadlocke/create?participantId=${userId}`,
       data,
       headers
     )
