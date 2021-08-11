@@ -18,7 +18,7 @@ class GameDetail extends Component {
         try {
           this.setState(
             {
-              gameData: await getGameInfo("6112d7bbac17417307421b89"),
+              gameData: await getGameInfo("61132d11d8ccfb5238c2c25a"),
             },
             function () {
               console.log("setState Completed:", this.state.gameData);
@@ -44,6 +44,7 @@ class GameDetail extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Game Detail Page</h1>
+          <p>{loading ? "" : `Game ID: ${gameInfo["id"]}`}</p>
           <p>{loading ? "" : `Admin: ${gameInfo["creatorId"]}`}</p>
           <p>
             {loading
