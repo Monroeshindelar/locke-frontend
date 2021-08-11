@@ -26,6 +26,22 @@ export const createGame = (userId) => {
       alert("Game Created");
     })
     .catch((error) => {
-      console.error("Something went wrong!", error);
+      console.error("PUT request error: Unable to create game", error);
     });
 };
+
+// GET Request for getting a Games info
+export const getGameInfo = (gameId) => {
+  const axios = require('axios')
+  return axios.get(`http://localhost:9292/games/squadlocke/${gameId}`)
+  .then((response) => {
+    //console.log("Status: ", response.status);
+    //console.log("Data: ", response.data);
+    return response.data;
+  })
+  .catch((error) => {
+    console.error("GET request error: Unable to get game info", error)
+  })
+  
+};
+
