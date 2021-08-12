@@ -32,16 +32,31 @@ export const createGame = (userId) => {
 
 // GET Request for getting a Games info
 export const getGameInfo = (gameId) => {
-  const axios = require('axios')
-  return axios.get(`http://localhost:9292/games/squadlocke/${gameId}`)
-  .then((response) => {
-    //console.log("Status: ", response.status);
-    //console.log("Data: ", response.data);
-    return response.data;
-  })
-  .catch((error) => {
-    console.error("GET request error: Unable to get game info", error)
-  })
-  
+  // const axios = require('axios')
+  return axios
+    .get(`http://localhost:9292/games/squadlocke/${gameId}`)
+    .then((response) => {
+      // console.log("Status: ", response.status);
+      // console.log("Data: ", response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.error("GET request error: Unable to get game info", err);
+    });
 };
 
+// GET Request for getting game participant info
+export const getParticipantInfo = (gameId, participantId) => {
+  return axios
+    .get(
+      `http://localhost:9292/games/squadlocke/${gameId}/participants/${participantId}`
+    )
+    .then((response) => {
+      // console.log("Status: ", response.status);
+      // console.log("Data: ", response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.error("GET request error: Unable to get participant info", err);
+    });
+};

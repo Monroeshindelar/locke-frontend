@@ -24,14 +24,16 @@ class GameDetail extends Component {
               console.log("setState Completed:", this.state.gameData);
             }
           );
-        } catch (e) {
-          console.log("Could not set State: gameData,", e);
+        } catch (err) {
+          console.log("Could not set State: gameData", err);
         }
       })();
     }
   }
 
   render() {
+
+    // Load game data with state
     if (this.state.gameData === null) {
       var loading = true;
     } else {
