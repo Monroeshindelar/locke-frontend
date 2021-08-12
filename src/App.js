@@ -1,8 +1,8 @@
 import { BrowserRouter, Route } from "react-router-dom"
-import Home from "./Home/Home"
-import GameDetail from "./GameDetail/GameDetail"
-import AccountDetail from "./AccountDetail/AccountDetail"
-import GameParticipant from "./GameParticipant/GameParticipant";
+import Home from "./Components/Home/Home"
+import GameDetail from "./Components/GameDetail/GameDetail"
+import AccountDetail from "./Components/AccountDetail/AccountDetail"
+import GameParticipant from "./Components/GameParticipantDetail/GameParticipantDetail";
 
 function App() {
   return (

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./GameParticipant.css";
+// import logo from "./logo.svg";
+import "./GameParticipantDetail.css";
 import { Link } from "react-router-dom";
-import { getParticipantInfo } from "../GameServiceAPIUtils";
+import { getParticipantInfo } from "../../Utilities/GameServiceAPIUtils";
 
 class GameParticipant extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class GameParticipant extends Component {
     return (
       <div className="GameParticipantPage">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1>Game Participant Page</h1>
           <p>
             {loading
