@@ -24,7 +24,10 @@ class GameParticipant extends Component {
               ),
             },
             function () {
-              console.log("setState Completed:", this.state.participantData);
+              console.log(
+                "Participant setState Completed:",
+                this.state.participantData
+              );
             }
           );
         } catch (err) {
@@ -68,7 +71,9 @@ class GameParticipant extends Component {
                 }`}
           </p>
 
-          <Link to="/">Go Back to Home Page</Link>
+          <Link to="/" className="link">
+            Go Back to Home Page
+          </Link>
         </header>
       </div>
     );

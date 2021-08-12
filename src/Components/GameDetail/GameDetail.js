@@ -21,7 +21,7 @@ class GameDetail extends Component {
               gameData: await getGameInfo("61132d11d8ccfb5238c2c25a"),
             },
             function () {
-              console.log("setState Completed:", this.state.gameData);
+              console.log("Game setState Completed:", this.state.gameData);
             }
           );
         } catch (err) {
@@ -64,7 +64,9 @@ class GameDetail extends Component {
               : `Generation: ${gameInfo["settings"]["generationId"]}`}
           </p>
 
-          <Link to="/">Go Back to Home Page</Link>
+          <Link to="/" className="link">
+            Go Back to Home Page
+          </Link>
         </header>
       </div>
     );

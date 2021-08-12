@@ -25,14 +25,20 @@ class Home extends Component {
           </button>
           <p>
             {" "}
-            <Link to="/GameDetail">Go to Game Detail Page</Link>
-          </p>
-          <p>
-            <Link to="/AccountDetail">Go to Account Detail Page</Link>
+            <Link to="/GameDetail" className="link">
+              Game Detail Page
+            </Link>
           </p>
           <p>
             {" "}
-            <Link to="/GameParticipant">Go to Game Participant Page</Link>
+            <Link to="/GameParticipant" className="link">
+              Game Participant Page
+            </Link>
+          </p>
+          <p>
+            <Link to="/AccountDetail" className="link">
+              Account Detail Page
+            </Link>
           </p>
         </header>
       </div>
