@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-// import logo from "./logo.svg";
 import "./Home.css";
 import { Link } from "react-router-dom";
-// import { createGame } from "../../Utilities/GameServiceAPIUtils";
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      ID: "285699164879192065",
+      userID: "285699164879192065",
     };
   }
 
@@ -18,26 +16,21 @@ class Home extends Component {
         <header className="App-header">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1>Home Page</h1>
-          <p>Participant ID: {this.state.ID}</p>
-          {/* <button onClick={() => createGame(this.state.ID)}>
-            {" "}
-            Create Game{" "}
-          </button> */}
-          <Link to="/GameSettings" className="btn btn-primary">Create New Game</Link>
+          <p>Participant ID: {this.state.userID}</p>
           <p>
             {" "}
-            <Link to="/GameDetail" className="link">
-              Game Detail Page
+            <Link
+              to={{
+                pathname: "/GameSettings",
+                state: { account: this.state.userID },
+              }}
+              className="btn btn-primary"
+            >
+              Create New Game
             </Link>
           </p>
           <p>
-            {" "}
-            <Link to="/GameParticipant" className="link">
-              Game Participant Page
-            </Link>
-          </p>
-          <p>
-            <Link to="/AccountDetail" className="link">
+            <Link to="/AccountDetail" className="btn btn-primary">
               Account Detail Page
             </Link>
           </p>

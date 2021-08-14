@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import logo from "./logo.svg";
 import "./GameDetail.css";
 import { Link } from "react-router-dom";
 import { getGameInfo } from "../../Utilities/GameServiceAPIUtils";
@@ -16,14 +15,9 @@ class GameDetail extends Component {
     if (!this.state.gameData) {
       (async () => {
         try {
-          this.setState(
-            {
-              gameData: await getGameInfo("61132d11d8ccfb5238c2c25a"),
-            },
-            function () {
-              console.log("Game setState Completed:", this.state.gameData);
-            }
-          );
+          this.setState({
+            gameData: await getGameInfo(this.props.location.state.gameID),
+          });
         } catch (err) {
           console.log("Could not set State: gameData", err);
         }
@@ -43,7 +37,6 @@ class GameDetail extends Component {
     return (
       <div className="GameDetailPage">
         <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1>Game Detail Page</h1>
           <p>{loading ? "" : `Game ID: ${gameInfo["id"]}`}</p>
           <p>{loading ? "" : `Admin: ${gameInfo["creatorId"]}`}</p>
@@ -51,6 +44,11 @@ class GameDetail extends Component {
             {loading
               ? ""
               : `Current State: ${gameInfo["gameState"]["gameStateType"]}`}
+          </p>
+          <p>
+            {loading
+              ? ""
+              : `Accessibility: ${gameInfo["settings"]["accessibility"]}`}
           </p>
           <p>
             {loading
