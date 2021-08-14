@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
 }
 
@@ -35,22 +35,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.btn {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
-.link {
-  color: #61dafb;
-}
-.link:hover {
-  color: aquamarine;
 }

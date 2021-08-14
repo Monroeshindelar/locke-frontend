@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import logo from "./logo.svg";
 import "./Home.css";
 import { Link } from "react-router-dom";
-import { createGame } from "../../Utilities/GameServiceAPIUtils";
+// import { createGame } from "../../Utilities/GameServiceAPIUtils";
 
 class Home extends Component {
   constructor() {
@@ -19,10 +19,11 @@ class Home extends Component {
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1>Home Page</h1>
           <p>Participant ID: {this.state.ID}</p>
-          <button onClick={() => createGame(this.state.ID)}>
+          {/* <button onClick={() => createGame(this.state.ID)}>
             {" "}
             Create Game{" "}
-          </button>
+          </button> */}
+          <Link to="/GameSettings" className="btn btn-primary">Create New Game</Link>
           <p>
             {" "}
             <Link to="/GameDetail" className="link">
