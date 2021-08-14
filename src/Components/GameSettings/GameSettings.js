@@ -93,18 +93,6 @@ class GameSettings extends Component {
                   8
                 </div>
               </Dropdown.Item>
-              <Dropdown.Item as="button">
-                <div
-                  onClick={(e) =>
-                    this.changeDropDownTitle(
-                      e.target.textContent,
-                      "generationId"
-                    )
-                  }
-                >
-                  6
-                </div>
-              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
