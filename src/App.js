@@ -1,14 +1,15 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import Home from "./Components/Home/Home"
-import GameDetail from "./Components/GameDetail/GameDetail"
-import AccountDetail from "./Components/AccountDetail/AccountDetail"
-import GameParticipantDetail from "./Components/GameParticipantDetail/GameParticipantDetail";
+import GameDetailView from "./Components/GameDetailView/GameDetailView"
+import AccountDetailView from "./Components/AccountDetailView/AccountDetailView"
+import GameParticipantDetailView from "./Components/GameParticipantDetailView/GameParticipantDetailView";
 import OAuth2RedirectHandler from "./Components/OAuth2RedirectHandler";
 import PrivateRoute from "./Common/PrivateRoute";
 import { isAuthenticated, getAuthenticatedUser } from "./Utilities/AuthServiceApiUtils";
 import { withProps } from "./Utilities/Utils"
 import { Component } from "react";
-import GameSettings from "./Components/GameSettings/GameSettings";
+import GameCreationView from "./Components/GameCreationView/GameCreationView";
+import { ACCOUNT_DETAIL_VIEW_PATH, GAME_DETAIL_VIEW_PATH, GAME_CREATION_CONFIGURATION_PATH, GAME_PARTICIPANT_DETAIL_VIEW_PATH } from "./constants";
 
 class App extends Component {
   constructor(props) {
@@ -47,16 +48,15 @@ class App extends Component {
       return <h1>Loading</h1>
     }
 
-
     return (
       <BrowserRouter>
         <Switch>
-          <Route path='/' exact component={withProps(Home, { user: this.state.user })}/>
-          <Route path='/game' exact component={GameDetail} />
-          <PrivateRoute path='/account' authenticated={isAuthenticated() && this.state.user} account={this.state.user} exact component={AccountDetail} />
-          {/* <Route path='/game/participant' exact component={GameParticipant} /> */}
+          <Route path="/" exact component={withProps(Home, { user: this.state.user })}/>
+          <Route path={GAME_DETAIL_VIEW_PATH} exact component={GameDetailView} />
+          <PrivateRoute path={ACCOUNT_DETAIL_VIEW_PATH} authenticated={isAuthenticated() && this.state.user} account={this.state.user} exact component={AccountDetailView} />
+          <Route path={GAME_PARTICIPANT_DETAIL_VIEW_PATH} exact component={GameParticipantDetailView} />
+          <Route path={GAME_CREATION_CONFIGURATION_PATH} exact component={GameCreationView} />
           <Route path="/oauth2/redirect" exact component={OAuth2RedirectHandler} />
-          <Route path="/GameSettings" exact component={GameSettings} />
         </Switch>
       </BrowserRouter>
     );

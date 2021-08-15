@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./GameDetail.css";
+import "./GameDetailView.css";
 import { Link } from "react-router-dom";
-import { getGameInfo } from "../../Utilities/GameServiceAPIUtils";
+import { getGameInfo } from "../../Utilities/GameServiceApiUtils";
 
-class GameDetail extends Component {
+class GameDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -71,4 +71,4 @@ class GameDetail extends Component {
   }
 }
 
-export default GameDetail;
+export default GameDetailView;

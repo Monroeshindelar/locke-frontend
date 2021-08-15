@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 // import logo from "./logo.svg";
-import "./GameSettings.css";
-// import { createGame } from "../../Utilities/GameServiceAPIUtils";
+import "./GameCreationView.css";
+// import { createGame } from "../../Utilities/GameServiceApiUtils";
 import { Dropdown, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
-import { createGame } from "../../Utilities/GameServiceAPIUtils";
+import { createGame } from "../../Utilities/GameServiceApiUtils";
 import { Redirect } from "react-router-dom";
+import { GAME_DETAIL_VIEW_PATH } from "../../constants";
 
-class GameSettings extends Component {
+class GameCreationView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,7 +62,7 @@ class GameSettings extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/game",
+            pathname: GAME_DETAIL_VIEW_PATH,
             state: { gameId: this.state.gameId },
           }}
         />
@@ -69,7 +70,7 @@ class GameSettings extends Component {
     }
 
     return (
-      <div className="GameSettings">
+      <div className="GameCreationView">
         <header className="App-header">
           <h1>New Game Settings</h1>
 
@@ -182,4 +183,4 @@ class GameSettings extends Component {
   }
 }
 
-export default GameSettings;
+export default GameCreationView;

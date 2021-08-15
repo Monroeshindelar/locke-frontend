@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./GameParticipantDetail.css";
+import "./GameParticipantDetailView.css";
 import { Link } from "react-router-dom";
-import { getParticipantInfo } from "../../Utilities/GameServiceAPIUtils";
+import { getParticipantInfo } from "../../Utilities/GameServiceApiUtils";
 
-class GameParticipant extends Component {
+class GameParticipantDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +46,7 @@ class GameParticipant extends Component {
     }
 
     return (
-      <div className="GameParticipantPage">
+      <div className="GameParticipantView">
         <header className="App-header">
           <h1>Game Participant Page</h1>
           <p>
@@ -78,4 +78,4 @@ class GameParticipant extends Component {
   }
 }
 
-export default GameParticipant;
+export default GameParticipantDetailView;

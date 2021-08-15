@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 import { getUsernameWithDiscriminator } from "../../Utilities/AuthServiceApiUtils";
-import { DISCORD_AUTH_URL } from "../../constants";
+import { DISCORD_AUTH_URL, GAME_CREATION_CONFIGURATION_PATH, ACCOUNT_DETAIL_VIEW_PATH } from "../../constants";
 
 class Home extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Home extends Component {
               this.props.user ?
               <Link
                 to={{
-                  pathname: "/GameSettings",
+                  pathname: GAME_CREATION_CONFIGURATION_PATH,
                   state: { account: this.props.user.principalId },
                 }}
                 className="btn btn-primary"
@@ -35,7 +35,7 @@ class Home extends Component {
             }
           </p>
           <p>
-          {this.props.user ? <Link to="/account" className="btn btn-primary">Go to Account Detail Page</Link> : null}
+          {this.props.user ? <Link to={ACCOUNT_DETAIL_VIEW_PATH} className="btn btn-primary">Go to Account Detail Page</Link> : null}
           </p>
         </header>
       </div>

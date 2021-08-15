@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ACCESS_TOKEN_NAME } from "../constants";
+import { ACCESS_TOKEN_NAME, ACCOUNT_DETAIL_VIEW_PATH } from "../constants";
 import { Redirect } from 'react-router-dom';
 
 class OAuth2RedirectHandler extends Component {
@@ -18,12 +18,12 @@ class OAuth2RedirectHandler extends Component {
         if(token) {
             localStorage.setItem(ACCESS_TOKEN_NAME, token);
             return <Redirect to={{
-                pathname: "/account",
+                pathname: ACCOUNT_DETAIL_VIEW_PATH,
                 state: { from: this.props.location }
             }}/>
         } else {
             return <Redirect to={{
-                pathname: "/login",
+                pathname: "/",
                 state: { 
                     from: this.props.location,
                     error: error 

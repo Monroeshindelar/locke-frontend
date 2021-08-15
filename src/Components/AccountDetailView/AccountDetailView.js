@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./AccountDetail.css";
+import "./AccountDetailView.css";
 import { Link } from "react-router-dom";
 import { DISCORD_AVATAR_BASE_URL } from "../../constants";
 
-class AccountDetail extends Component {
+class AccountDetailView extends Component {
   constructor(props) {
     super(props);
   }
@@ -14,7 +14,7 @@ class AccountDetail extends Component {
 
   render() {
     return (
-      <div className="AccountDetailPage">
+      <div className="AccountDetailView">
         <header className="App-header">
           <p>Account Detail</p>
           <p>Username: {this.props.account.username}#{this.props.account.discriminator}</p>
@@ -26,4 +26,4 @@ class AccountDetail extends Component {
   }
 }
 
-export default AccountDetail;
+export default AccountDetailView;
