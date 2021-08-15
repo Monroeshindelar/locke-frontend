@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./GameParticipant.css";
 import { Link } from "react-router-dom";
 import { getParticipantInfo } from "../GameServiceAPIUtils";
@@ -46,7 +45,6 @@ class GameParticipant extends Component {
     return (
       <div className="GameParticipantPage">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1>Game Participant Page</h1>
           <p>
             {loading

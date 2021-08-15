@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_BASE_URL } from "./constants";
 
 var settings = {
   name: "test",
@@ -16,7 +17,7 @@ export const createGame = (userId) => {
   console.log(data);
   axios
     .put(
-      `http://localhost:9292/games/squadlocke/create?participantId=${userId}`,
+      `${API_BASE_URL}/games/squadlocke/create?participantId=${userId}`,
       data,
       headers
     )
@@ -34,7 +35,7 @@ export const createGame = (userId) => {
 export const getGameInfo = (gameId) => {
   // const axios = require('axios')
   return axios
-    .get(`http://localhost:9292/games/squadlocke/${gameId}`)
+    .get(`${API_BASE_URL}/games/squadlocke/${gameId}`)
     .then((response) => {
       // console.log("Status: ", response.status);
       // console.log("Data: ", response.data);
@@ -49,7 +50,7 @@ export const getGameInfo = (gameId) => {
 export const getParticipantInfo = (gameId, participantId) => {
   return axios
     .get(
-      `http://localhost:9292/games/squadlocke/${gameId}/participants/${participantId}`
+      `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}`
     )
     .then((response) => {
       // console.log("Status: ", response.status);

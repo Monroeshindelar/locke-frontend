@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./GameDetail.css";
 import { Link } from "react-router-dom";
 import { getGameInfo } from "../GameServiceAPIUtils";
@@ -44,7 +43,6 @@ class GameDetail extends Component {
     return (
       <div className="GameDetailPage">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1>Game Detail Page</h1>
           <p>{loading ? "" : `Game ID: ${gameInfo["id"]}`}</p>
           <p>{loading ? "" : `Admin: ${gameInfo["creatorId"]}`}</p>
