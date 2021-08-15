@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./AccountDetail.css";
 import { Link } from "react-router-dom";
 
@@ -8,14 +7,14 @@ class AccountDetail extends Component {
     return (
       <div className="AccountDetailPage">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Account Detail Page</p>
-
-          <Link to="/">Go Back to Home Page</Link>
+          <h1>Account Detail Page</h1>
+          <Link to="/" className="link">
+            Go Back to Home Page
+          </Link>
         </header>
       </div>
     );
   }
 }
 
-export default AccountDetail
+export default AccountDetail;
