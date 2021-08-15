@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom"
-import Home from "./Home/Home"
-import GameDetail from "./GameDetail/GameDetail"
-import AccountDetail from "./AccountDetail/AccountDetail"
-import GameParticipant from "./GameParticipant/GameParticipant";
+import Home from "./Components/Home/Home"
+import GameDetail from "./Components/GameDetail/GameDetail"
+import AccountDetail from "./Components/AccountDetail/AccountDetail"
+import GameParticipantDetail from "./Components/GameParticipantDetail/GameParticipantDetail";
 import OAuth2RedirectHandler from "./Components/OAuth2RedirectHandler";
 import PrivateRoute from "./Common/PrivateRoute";
-import { isAuthenticated } from "./Utilities/AuthServiceApiUtils";
-import { Component } from "react";
-import { getAuthenticatedUser } from "./Utilities/AuthServiceApiUtils";
+import { isAuthenticated, getAuthenticatedUser } from "./Utilities/AuthServiceApiUtils";
 import { withProps } from "./Utilities/Utils"
+import { Component } from "react";
+import GameSettings from "./Components/GameSettings/GameSettings";
 
 class App extends Component {
   constructor(props) {
@@ -54,8 +54,9 @@ class App extends Component {
           <Route path='/' exact component={withProps(Home, { user: this.state.user })}/>
           <Route path='/game' exact component={GameDetail} />
           <PrivateRoute path='/account' authenticated={isAuthenticated() && this.state.user} account={this.state.user} exact component={AccountDetail} />
-          <Route path='/game/participant' exact component={GameParticipant} />
+          {/* <Route path='/game/participant' exact component={GameParticipant} /> */}
           <Route path="/oauth2/redirect" exact component={OAuth2RedirectHandler} />
+          <Route path="/GameSettings" exact component={GameSettings} />
         </Switch>
       </BrowserRouter>
     );

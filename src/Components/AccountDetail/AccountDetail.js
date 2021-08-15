@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./AccountDetail.css";
 import { Link } from "react-router-dom";
-import { DISCORD_AVATAR_BASE_URL } from "../constants";
+import { DISCORD_AVATAR_BASE_URL } from "../../constants";
 
 class AccountDetail extends Component {
   constructor(props) {

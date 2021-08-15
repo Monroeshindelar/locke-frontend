@@ -1,30 +1,19 @@
 import axios from "axios";
-import { API_BASE_URL } from "./constants";
-
-var settings = {
-  name: "test",
-  generationId: 8,
-  checkpointFrequency: 2,
-  voteThreshold: 51,
-  difficultyMode: "EASY",
-  tournamentSettings: {},
-};
+import { API_BASE_URL } from "../constants";
 
 // PUT Request for Creating a Game using Participants ID
-export const createGame = (userId) => {
+export const createGame = (userId, settings) => {
   const data = settings;
   const headers = {};
-  console.log(data);
-  axios
+  //console.log(data);
+  return axios
     .put(
       `${API_BASE_URL}/games/squadlocke/create?participantId=${userId}`,
       data,
       headers
     )
     .then((response) => {
-      console.log("Status: ", response.status);
-      console.log("Data: ", response.data);
-      alert("Game Created");
+      return response.data;
     })
     .catch((error) => {
       console.error("PUT request error: Unable to create game", error);
@@ -33,12 +22,9 @@ export const createGame = (userId) => {
 
 // GET Request for getting a Games info
 export const getGameInfo = (gameId) => {
-  // const axios = require('axios')
   return axios
     .get(`${API_BASE_URL}/games/squadlocke/${gameId}`)
     .then((response) => {
-      // console.log("Status: ", response.status);
-      // console.log("Data: ", response.data);
       return response.data;
     })
     .catch((err) => {
@@ -53,8 +39,6 @@ export const getParticipantInfo = (gameId, participantId) => {
       `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}`
     )
     .then((response) => {
-      // console.log("Status: ", response.status);
-      // console.log("Data: ", response.data);
       return response.data;
     })
     .catch((err) => {

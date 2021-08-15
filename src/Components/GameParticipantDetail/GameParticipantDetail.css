@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 10vmin;
+  height: 40vmin;
   pointer-events: none;
 }
 
@@ -35,4 +35,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.link {
+  color: #61dafb;
+}
+.link:hover {
+  color: aquamarine;
 }

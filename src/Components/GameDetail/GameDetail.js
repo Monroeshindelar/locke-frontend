@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./GameDetail.css";
 import { Link } from "react-router-dom";
-import { getGameInfo } from "../GameServiceAPIUtils";
+import { getGameInfo } from "../../Utilities/GameServiceAPIUtils";
 
 class GameDetail extends Component {
   constructor(props) {
@@ -15,14 +15,9 @@ class GameDetail extends Component {
     if (!this.state.gameData) {
       (async () => {
         try {
-          this.setState(
-            {
-              gameData: await getGameInfo("61132d11d8ccfb5238c2c25a"),
-            },
-            function () {
-              console.log("setState Completed:", this.state.gameData);
-            }
-          );
+          this.setState({
+            gameData: await getGameInfo(this.props.location.state.gameId),
+          });
         } catch (err) {
           console.log("Could not set State: gameData", err);
         }
@@ -31,7 +26,6 @@ class GameDetail extends Component {
   }
 
   render() {
-
     // Load game data with state
     if (this.state.gameData === null) {
       var loading = true;
@@ -54,6 +48,11 @@ class GameDetail extends Component {
           <p>
             {loading
               ? ""
+              : `Accessibility: ${gameInfo["settings"]["accessibility"]}`}
+          </p>
+          <p>
+            {loading
+              ? ""
               : `Difficulty: ${gameInfo["settings"]["difficultyMode"]}`}
           </p>
           <p>{loading ? "" : `Players: ${gameInfo["participants"].length}`}</p>
@@ -63,7 +62,9 @@ class GameDetail extends Component {
               : `Generation: ${gameInfo["settings"]["generationId"]}`}
           </p>
 
-          <Link to="/">Go Back to Home Page</Link>
+          <Link to="/" className="link">
+            Go Back to Home Page
+          </Link>
         </header>
       </div>
     );
