@@ -1,16 +1,18 @@
 import axios from "axios";
 import { API_BASE_URL } from "../constants";
+import { getAuthorizationHeader } from "./ApiUtils";
 
 // PUT Request for Creating a Game using Participants ID
 export const createGame = (userId, settings) => {
   const data = settings;
-  const headers = {};
+  //const headers = {};
+  var headers = getAuthorizationHeader();
   //console.log(data);
   return axios
     .put(
       `${API_BASE_URL}/games/squadlocke/create?participantId=${userId}`,
       data,
-      headers
+      { headers }
     )
     .then((response) => {
       return response.data;
@@ -22,8 +24,10 @@ export const createGame = (userId, settings) => {
 
 // GET Request for getting a Games info
 export const getGameInfo = (gameId) => {
+  var headers = getAuthorizationHeader();
+
   return axios
-    .get(`${API_BASE_URL}/games/squadlocke/${gameId}`)
+    .get(`${API_BASE_URL}/games/squadlocke/${gameId}`, { headers })
     .then((response) => {
       return response.data;
     })

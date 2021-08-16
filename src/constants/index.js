@@ -1,5 +1,6 @@
 export const ACCESS_TOKEN_NAME = "access_token";
-export const API_BASE_URL = "http://10.0.0.86:9292";
+//export const API_BASE_URL = "http://10.0.0.84:9292";
+export const API_BASE_URL = "http://24.17.77.207:9292";
 
 export const OAUTH2_REDIRECT_URL = "http://localhost:3000/oauth2/redirect";
 export const DISCORD_AVATAR_BASE_URL = "https://cdn.discordapp.com/avatars/";
