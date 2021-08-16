@@ -17,7 +17,7 @@ class Home extends Component {
             Home Page <br /> 
             {this.props.user ? `Logged in as ${getUsernameWithDiscriminator(this.props.user)}` : "Not Logged in"}
           </p>
-          {this.props.user ? null : <a href={DISCORD_AUTH_URL}>Log in with Discord</a>}
+          {this.props.user ? null : <a href={DISCORD_AUTH_URL} className="btn btn-primary">Log in with Discord</a>}
           <p>
             {" "}
             {
