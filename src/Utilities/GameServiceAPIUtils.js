@@ -38,9 +38,11 @@ export const getGameInfo = (gameId) => {
 
 // GET Request for getting game participant info
 export const getParticipantInfo = (gameId, participantId) => {
+  var headers = getAuthorizationHeader();
   return axios
     .get(
-      `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}`
+      `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}`,
+      { headers }
     )
     .then((response) => {
       return response.data;
