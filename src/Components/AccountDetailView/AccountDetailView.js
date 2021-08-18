@@ -2,10 +2,21 @@ import React, { Component } from "react";
 import "./AccountDetailView.css";
 import { Link } from "react-router-dom";
 import { DISCORD_AVATAR_BASE_URL } from "../../constants";
+import { getGamesByUserId } from "../../Utilities/GameServiceApiUtils";
 
 class AccountDetailView extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      games: null
+    }
+  }
+
+  async componentDidMount() {
+    this.setState({
+      games: await getGamesByUserId(this.props.account.principalId)
+    });
   }
 
   getAvatarUrl() {

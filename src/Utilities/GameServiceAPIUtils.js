@@ -51,3 +51,17 @@ export const getParticipantInfo = (gameId, participantId) => {
       console.error("GET request error: Unable to get participant info", err);
     });
 };
+
+export const getGamesByUserId = (userId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .get(`${API_BASE_URL}/games/squadlocke/by-userid/${userId}`, { headers })
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    })
+    .catch((err) => {
+      console.error("GET request error: Unable to get games for user")
+    })
+};
