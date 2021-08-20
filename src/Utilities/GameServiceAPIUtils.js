@@ -70,7 +70,7 @@ export const joinGame = (gameId, userId) => {
   var headers = getAuthorizationHeader();
 
   return axios
-    .post(`${API_BASE_URL}/games/squadlocke/${gameId}/join?participantId=${userId}`, { headers })
+    .post(`${API_BASE_URL}/games/squadlocke/${gameId}/join?participantId=${userId}`, null, { headers })
     .then((response) => {
       console.log(response);
       return response.data;

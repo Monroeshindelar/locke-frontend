@@ -11,6 +11,7 @@ class GameDetailView extends Component {
     this.state = {
       gameData: null,
     };
+
   }
 
   async componentDidMount() {
@@ -27,8 +28,26 @@ class GameDetailView extends Component {
     }
   }
 
+  userInGame() {
+    if (!this.props.user || !this.state.gameData) return false;
+    var retVal = false;
+
+    for (var p in this.state.gameData.participants) {
+      var participantId = this.state.gameData.participants[p].id;
+      if (this.props.user.principalId === participantId) {
+        retVal = true;
+        break;
+      }
+    }
+
+    return retVal;
+  }
+
   handleJoinGameClick = () => {
-    joinGame(this.state.gameData.id, "297855751026769922")
+    if (!this.props.user || !this.gameData || this.gameData.gameState.gameStateType !== "REGISTRATION")
+      return;
+
+    joinGame(this.state.gameData.id, this.props.user.principalId)
     .then((response) => {
       console.log(response);
     })
@@ -71,10 +90,13 @@ class GameDetailView extends Component {
               : `Generation: ${gameInfo["settings"]["generationId"]}`}
           </p>
           {
-            this.state.gameData && this.state.gameData.gameState.gameStateType === "REGISTRATION" 
-            ?
+            !loading &&
+            gameInfo && 
+            gameInfo.gameState.gameStateType === "REGISTRATION" && 
+            !this.userInGame()
+              ?
             <Button onClick={() => this.handleJoinGameClick()}>Join Game</Button>
-            :
+              :
             null
           }
 

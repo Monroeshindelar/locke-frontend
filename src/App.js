@@ -52,7 +52,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={withProps(Home, { user: this.state.user })}/>
-          <Route path={GAME_DETAIL_VIEW_PATH} exact component={GameDetailView} />
+          <Route path={GAME_DETAIL_VIEW_PATH} exact component={withProps(GameDetailView, { user: this.state.user })} />
           <PrivateRoute path={ACCOUNT_DETAIL_VIEW_PATH} authenticated={isAuthenticated() && this.state.user} account={this.state.user} exact component={AccountDetailView} />
           <Route path={GAME_PARTICIPANT_DETAIL_VIEW_PATH} exact component={GameParticipantDetailView} />
           <Route path={GAME_CREATION_CONFIGURATION_PATH} exact component={GameCreationView} />
