@@ -47,6 +47,8 @@ class GameCreationView extends Component {
   };
 
   handleClick = () => {
+    if (!this.state.settings.name || !this.state.settings.generationId) return;
+
     createGame(this.props.location.state.account, this.state.settings).then(
       (response) => {
         this.setState({
@@ -55,6 +57,14 @@ class GameCreationView extends Component {
       }
     );
   };
+
+  handleTextChange = (event) => {
+    var settings = this.state.settings;
+    settings.name = event.target.value;
+    this.setState({
+      settings: settings
+    });
+  }
 
   async componentDidMount() {
     if (!this.state.generationIdList) {
@@ -106,7 +116,7 @@ class GameCreationView extends Component {
           <h1>New Game Settings</h1>
 
           <div>
-            <Form.Control size="lg" type="text" placeholder="Title" />
+            <Form.Control onChange={(event) => this.handleTextChange(event)}size="lg" type="text" placeholder="Title" />
           </div>
 
           <Dropdown id="generationIdDropDown">
