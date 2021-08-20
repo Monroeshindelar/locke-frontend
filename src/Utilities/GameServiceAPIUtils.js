@@ -80,6 +80,19 @@ export const joinGame = (gameId, userId) => {
     })
 }
 
+export const startGame = (gameId) => {
+  var headers = getAuthorizationHeader();
+  return axios
+    .post(`${API_BASE_URL}/games/squadlocke/${gameId}/start`, null, { headers })
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+}
+
 // GET Request for a list of all the game generation ids
 export const getGenerationIds = () => {
   var headers = getAuthorizationHeader();

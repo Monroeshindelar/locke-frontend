@@ -3,7 +3,7 @@ import "./GameDetailView.css";
 import { Link } from "react-router-dom";
 import { getGameInfo } from "../../Utilities/GameServiceApiUtils";
 import { Button } from "reactstrap";
-import { joinGame } from "../../Utilities/GameServiceApiUtils";
+import { joinGame, startGame } from "../../Utilities/GameServiceApiUtils";
 
 class GameDetailView extends Component {
   constructor(props) {
@@ -43,14 +43,41 @@ class GameDetailView extends Component {
     return retVal;
   }
 
+  userIsAdmin() {
+    if (!this.props.user || !this.state.gameData) return false;
+
+    return this.props.user.principalId === this.state.gameData.creatorId;
+  }
+
+  gameInRegistrationPhase() {
+    if (!this.state.gameData) return false;
+
+    return this.state.gameData.gameState.gameStateType === "REGISTRATION";
+  }
+
   handleJoinGameClick = () => {
-    if (!this.props.user || !this.gameData || this.gameData.gameState.gameStateType !== "REGISTRATION")
+    if (!this.props.user || !this.gameData || !this.gameInRegistrationPhase())
       return;
 
     joinGame(this.state.gameData.id, this.props.user.principalId)
     .then((response) => {
-      console.log(response);
+      this.setState({
+        gameData: response
+      });
     })
+  }
+
+  handleStartGameClick() {
+    if (!this.props.user || !this.userIsAdmin() || !this.state.gameData || !this.gameInRegistrationPhase()) {
+      return;
+    }
+
+    startGame(this.state.gameData.id)
+    .then((response) => {
+      this.setState({
+        gameData: response
+      });
+    });
   }
 
   render() {
@@ -92,14 +119,23 @@ class GameDetailView extends Component {
           {
             !loading &&
             gameInfo && 
-            gameInfo.gameState.gameStateType === "REGISTRATION" && 
+            this.gameInRegistrationPhase() && 
             !this.userInGame()
               ?
             <Button onClick={() => this.handleJoinGameClick()}>Join Game</Button>
               :
             null
           }
-
+          {
+            !loading &&
+            gameInfo &&
+            this.userIsAdmin() &&
+            this.gameInRegistrationPhase()
+              ?
+            <Button onClick={() => this.handleStartGameClick()} >Start Game</Button>
+              :
+            null
+          }
           <Link to="/" className="link">
             Go Back to Home Page
           </Link>
