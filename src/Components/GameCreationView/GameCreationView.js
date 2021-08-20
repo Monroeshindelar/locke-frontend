@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { createGame } from "../../Utilities/GameServiceApiUtils";
 import { Redirect } from "react-router-dom";
 import { GAME_DETAIL_VIEW_PATH } from "../../constants";
+import { getGenerationIds } from "../../Utilities/GameServiceApiUtils";
 
 class GameCreationView extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class GameCreationView extends Component {
         maxPlayerCount: 10,
       },
       gameId: null,
+      generationIdList: null,
     };
   }
 
@@ -54,10 +56,21 @@ class GameCreationView extends Component {
     );
   };
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    if (!this.state.generationIdList) {
+      (async () => {
+        try {
+          this.setState({
+            generationIdList: await getGenerationIds(),
+          });
+        } catch (err) {
+          console.log("Could not set State: generationIdList", err);
+        }
+      })();
+    }
+  }
 
   render() {
-    console.log("state", this.state)
     if (this.state.gameId) {
       return (
         <Redirect
@@ -67,6 +80,24 @@ class GameCreationView extends Component {
           }}
         />
       );
+    }
+
+    const generations = [];
+    if (this.state.generationIdList) {
+      for (var i in this.state.generationIdList) {
+        var gen = this.state.generationIdList[i];
+        generations.push(
+          <Dropdown.Item as="button">
+            <div
+              onClick={(e) =>
+                this.changeDropDownTitle(e.target.textContent, "generationId")
+              }
+            >
+              {gen}
+            </div>
+          </Dropdown.Item>
+        );
+      }
     }
 
     return (
@@ -82,20 +113,7 @@ class GameCreationView extends Component {
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
               Generation: {this.state.settings.generationId}
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item as="button">
-                <div
-                  onClick={(e) =>
-                    this.changeDropDownTitle(
-                      e.target.textContent,
-                      "generationId"
-                    )
-                  }
-                >
-                  8
-                </div>
-              </Dropdown.Item>
-            </Dropdown.Menu>
+            <Dropdown.Menu>{generations}</Dropdown.Menu>
           </Dropdown>
 
           <Dropdown id="difficultyDropDown">

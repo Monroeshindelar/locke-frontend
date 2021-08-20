@@ -13,8 +13,8 @@ export function getUsernameWithDiscriminator(user) {
 export const getAuthenticatedUser = () => {
     let headers = getAuthorizationHeader();
 
-    return axios.
-        get(`${API_BASE_URL}/users/me`, { headers })
+    return axios
+        .get(`${API_BASE_URL}/users/me`, { headers })
         .then((response) => {
             console.log(response);
             return response.data;

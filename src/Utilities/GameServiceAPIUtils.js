@@ -79,3 +79,19 @@ export const joinGame = (gameId, userId) => {
       console.error(err);
     })
 }
+
+// GET Request for a list of all the game generation ids
+export const getGenerationIds = () => {
+  var headers = getAuthorizationHeader();
+  return axios
+    .get(`${API_BASE_URL}/generations/game-ids/all`, { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(
+        "GET request error: Unable to get game generation ids",
+        err
+      );
+    });
+};
