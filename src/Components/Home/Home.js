@@ -5,9 +5,9 @@ import { getUsernameWithDiscriminator } from "../../Utilities/AuthServiceApiUtil
 import { DISCORD_AUTH_URL, GAME_CREATION_CONFIGURATION_PATH, ACCOUNT_DETAIL_VIEW_PATH } from "../../constants";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (

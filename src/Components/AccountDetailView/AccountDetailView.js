@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { DISCORD_AVATAR_BASE_URL } from "../../constants";
 
 class AccountDetailView extends Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   getAvatarUrl() {
     return `${DISCORD_AVATAR_BASE_URL}/${this.props.account.principalId.toString()}/${this.props.account.avatar.toString()}.png`;
