@@ -60,20 +60,6 @@ class AccountDetailView extends Component {
       <div className="AccountDetailView">
         <header className="App-header">
           <p>Account Detail</p>
-<<<<<<< HEAD
-          <p>
-            Username: {this.props.account.username}#
-            {this.props.account.discriminator}
-          </p>
-          <p>
-            <img src={this.getAvatarUrl()} alt=""></img>
-          </p>
-          <p>
-            <Link to="/" className="btn btn-primary">
-              Go Back to Home Page
-            </Link>
-          </p>
-=======
           <p>Username: {this.props.account.username}#{this.props.account.discriminator}</p>
           <img src={this.getAvatarUrl()} alt=""></img>
           <Table>
@@ -92,7 +78,6 @@ class AccountDetailView extends Component {
             </tbody>
           </Table>
           <Link to="/">Go Back to Home Page</Link>
->>>>>>> LW-12-Get-Games-for-User
         </header>
       </div>
     );

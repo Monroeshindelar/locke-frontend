@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./GameDetailView.css";
 import { Link } from "react-router-dom";
 import { getGameInfo } from "../../Utilities/GameServiceApiUtils";
+import { Button } from "reactstrap";
+import { joinGame } from "../../Utilities/GameServiceApiUtils";
 
 class GameDetailView extends Component {
   constructor(props) {
@@ -23,6 +25,13 @@ class GameDetailView extends Component {
         }
       })();
     }
+  }
+
+  handleJoinGameClick = () => {
+    joinGame(this.state.gameData.id, "297855751026769922")
+    .then((response) => {
+      console.log(response);
+    })
   }
 
   render() {
@@ -61,6 +70,13 @@ class GameDetailView extends Component {
               ? ""
               : `Generation: ${gameInfo["settings"]["generationId"]}`}
           </p>
+          {
+            this.state.gameData && this.state.gameData.gameState.gameStateType === "REGISTRATION" 
+            ?
+            <Button onClick={() => this.handleJoinGameClick()}>Join Game</Button>
+            :
+            null
+          }
 
           <Link to="/" className="link">
             Go Back to Home Page

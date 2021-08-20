@@ -65,3 +65,17 @@ export const getGamesByUserId = (userId) => {
       console.error("GET request error: Unable to get games for user")
     })
 };
+
+export const joinGame = (gameId, userId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .post(`${API_BASE_URL}/games/squadlocke/${gameId}/join?participantId=${userId}`, { headers })
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+}
