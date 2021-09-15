@@ -1,0 +1,5 @@
+lw-frontend:
+  image: monroeshindelar/lw-frontend
+  container_name: lw-frontend
+  ports:
+    - 3000:3000
