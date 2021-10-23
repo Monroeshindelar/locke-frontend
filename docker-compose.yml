@@ -3,3 +3,5 @@ lw-frontend:
   container_name: lw-frontend
   ports:
     - 3000:3000
+  env_file:
+    - env.list

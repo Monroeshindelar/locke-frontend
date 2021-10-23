@@ -9,7 +9,7 @@ import { isAuthenticated, getAuthenticatedUser } from "./Utilities/AuthServiceAp
 import { withProps } from "./Utilities/Utils"
 import { Component } from "react";
 import GameCreationView from "./Components/GameCreationView/GameCreationView";
-import { ACCOUNT_DETAIL_VIEW_PATH, GAME_DETAIL_VIEW_PATH, GAME_CREATION_CONFIGURATION_PATH, GAME_PARTICIPANT_DETAIL_VIEW_PATH } from "./constants";
+import { ACCOUNT_DETAIL_VIEW_PATH, GAME_DETAIL_VIEW_PATH, GAME_CREATION_CONFIGURATION_PATH, GAME_PARTICIPANT_DETAIL_VIEW_PATH, API_BASE_URL } from "./constants";
 
 class App extends Component {
   constructor(props) {
@@ -47,6 +47,10 @@ class App extends Component {
     if(this.state.loading) {
       return <h1>Loading</h1>
     }
+
+    console.log(API_BASE_URL);
+
+    console.log(process.env)
 
     return (
       <BrowserRouter>
