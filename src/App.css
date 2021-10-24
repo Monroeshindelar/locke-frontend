@@ -1,0 +1,20 @@
+.brandHeader {
+    color: white;
+}
+
+.userCard {
+    display: flex;
+}
+
+.userAvatar {
+    border-radius: 50%;
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    color: white;
+}
+

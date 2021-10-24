@@ -5,6 +5,7 @@ import { DISCORD_AVATAR_BASE_URL } from "../../constants";
 import { getGamesByUserId } from "../../Utilities/GameServiceApiUtils";
 import { Table } from "reactstrap";
 import { GAME_DETAIL_VIEW_PATH } from "../../constants";
+import { getAvatarUrl } from "../../Utilities/UserUtils"; 
 
 class AccountDetailView extends Component {
   constructor(props) {
@@ -19,10 +20,6 @@ class AccountDetailView extends Component {
     this.setState({
       games: await getGamesByUserId(this.props.account.principalId)
     });
-  }
-
-  getAvatarUrl() {
-    return `${DISCORD_AVATAR_BASE_URL}/${this.props.account.principalId.toString()}/${this.props.account.avatar.toString()}.png`;
   }
 
   handleGameIdClick(gameId) {
@@ -61,7 +58,7 @@ class AccountDetailView extends Component {
         <header className="App-header">
           <p>Account Detail</p>
           <p>Username: {this.props.account.username}#{this.props.account.discriminator}</p>
-          <img src={this.getAvatarUrl()} alt=""></img>
+          <img src={this.getAvatarUrl(this.props.account)} alt=""></img>
           <Table>
             <thead>
               <tr>
