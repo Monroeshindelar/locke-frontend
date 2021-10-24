@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-// import logo from "./logo.svg";
 import "./GameCreationView.css";
-// import { createGame } from "../../Utilities/GameServiceApiUtils";
 import { Dropdown, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { createGame } from "../../Utilities/GameServiceApiUtils";

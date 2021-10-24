@@ -23,3 +23,4 @@ export const getAuthenticatedUser = () => {
             console.log(err);
         });
 };
+

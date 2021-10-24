@@ -93,6 +93,23 @@ export const startGame = (gameId) => {
     })
 }
 
+export const getJoinableGames = (userId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .get(`${API_BASE_URL}/games/squadlocke/joinable?userId=${userId}`, { headers })
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    })
+    .catch((err) => {
+      console.error(
+        "GET request error: Unable to get joinable games",
+        err
+      );
+    });
+}
+
 // GET Request for a list of all the game generation ids
 export const getGenerationIds = () => {
   var headers = getAuthorizationHeader();
