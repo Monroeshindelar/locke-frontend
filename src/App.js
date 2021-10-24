@@ -90,7 +90,7 @@ class App extends Component {
                           state: { account: this.state.user.principalId },
                         }}>
                         Browse Games
-                      </Link>
+                    </Link>
                   </Nav>
                 </Navbar.Collapse>
                 :
@@ -103,7 +103,14 @@ class App extends Component {
                   <div className="userCard">
                     {/* <Navbar.Text>{getUsernameWithDiscriminator(this.state.user)}</Navbar.Text> */}
                     <NavDropdown title={getUsernameWithDiscriminator(this.state.user)}>
-                      <NavDropdown.Item href="/accounts/me">Profile</NavDropdown.Item>
+                      <NavDropdown.Item>  
+                        <Link style={{ textDecoration: 'none', color: 'black' }}
+                          to={{
+                            pathname: ACCOUNT_DETAIL_VIEW_PATH
+                          }}>
+                          Profile
+                        </Link>
+                      </NavDropdown.Item>
                       <NavDropdown.Item href="/" onClick={() => this.logout()}>Logout</NavDropdown.Item>
                     </NavDropdown>
                     <img className="userAvatar" src={getAvatarUrl(this.state.user)} alt="#" width="50" height="50" />
