@@ -58,7 +58,7 @@ class AccountDetailView extends Component {
         <header className="App-header">
           <p>Account Detail</p>
           <p>Username: {this.props.account.username}#{this.props.account.discriminator}</p>
-          <img src={this.getAvatarUrl(this.props.account)} alt=""></img>
+          <img src={getAvatarUrl(this.props.account)} alt=""></img>
           <Table>
             <thead>
               <tr>
