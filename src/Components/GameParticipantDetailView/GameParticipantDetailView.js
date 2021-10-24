@@ -7,25 +7,25 @@ class GameParticipantDetailView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      participantData: null,
+      participant: null,
     };
   }
 
   async componentDidMount() {
-    if (!this.state.participantData) {
+    if (!this.state.participant) {
       (async () => {
         try {
           this.setState(
             {
-              participantData: await getParticipantInfo(
-                "61132d11d8ccfb5238c2c25a",
-                "285699164879192065"
+              participant: await getParticipantInfo(
+                this.props.location.state.gameId,
+                this.props.location.state.participantId
               ),
             },
             function () {
               console.log(
                 "Participant setState Completed:",
-                this.state.participantData
+                this.state.participant
               );
             }
           );
@@ -38,11 +38,11 @@ class GameParticipantDetailView extends Component {
 
   render() {
     // Load participant data with state
-    if (this.state.participantData === null) {
+    if (this.state.participant === null) {
       var loading = true;
     } else {
       loading = false;
-      var participantInfo = this.state.participantData;
+      var participantInfo = this.state.participant;
     }
 
     return (

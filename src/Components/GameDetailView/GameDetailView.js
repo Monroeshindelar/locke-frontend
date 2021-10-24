@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getGameInfo } from "../../Utilities/GameServiceApiUtils";
 import { Button } from "reactstrap";
 import { joinGame, startGame } from "../../Utilities/GameServiceApiUtils";
+import { GAME_PARTICIPANT_DETAIL_VIEW_PATH } from "../../constants/index.js";
 
 class GameDetailView extends Component {
   constructor(props) {
@@ -11,7 +12,6 @@ class GameDetailView extends Component {
     this.state = {
       gameData: null,
     };
-
   }
 
   async componentDidMount() {
@@ -22,7 +22,7 @@ class GameDetailView extends Component {
             gameData: await getGameInfo(this.props.location.state.gameId),
           });
         } catch (err) {
-          console.log("Could not set State: gameData", err);
+          console.log("Could not set State: gameData and/or participantData", err);
         }
       })();
     }
@@ -56,27 +56,36 @@ class GameDetailView extends Component {
   }
 
   handleJoinGameClick = () => {
-    if (!this.props.user || !this.state.gameData || !this.gameInRegistrationPhase())
+    if (
+      !this.props.user ||
+      !this.state.gameData ||
+      !this.gameInRegistrationPhase()
+    )
       return;
 
     console.log("HERE!");
-    joinGame(this.state.gameData.id, this.props.user.principalId)
-    .then((response) => {
-      this.setState({
-        gameData: response
-      });
-    })
-  }
+    joinGame(this.state.gameData.id, this.props.user.principalId).then(
+      (response) => {
+        this.setState({
+          gameData: response,
+        });
+      }
+    );
+  };
 
   handleStartGameClick() {
-    if (!this.props.user || !this.userIsAdmin() || !this.state.gameData || !this.gameInRegistrationPhase()) {
+    if (
+      !this.props.user ||
+      !this.userIsAdmin() ||
+      !this.state.gameData ||
+      !this.gameInRegistrationPhase()
+    ) {
       return;
     }
 
-    startGame(this.state.gameData.id)
-    .then((response) => {
+    startGame(this.state.gameData.id).then((response) => {
       this.setState({
-        gameData: response
+        gameData: response,
       });
     });
   }
@@ -90,11 +99,48 @@ class GameDetailView extends Component {
       var gameInfo = this.state.gameData;
     }
 
+    var headerStyle = {
+      color: "white",
+    };
+
+    const participants = [];
+    participants.push(
+      <p>Participants</p>
+    )
+    if (gameInfo) {
+      for (var p in gameInfo["participants"]) {
+        var partcipant = gameInfo["participants"][p];
+        console.log(partcipant);
+        if(partcipant["id"] === this.props.user.principalId) {
+            participants.push(
+              <Link style={headerStyle} to={{
+                pathname: GAME_PARTICIPANT_DETAIL_VIEW_PATH,
+                state: { 
+                  gameId: this.state.gameData["id"],
+                  participantId: this.props.user.principalId,
+                 },
+              }}>{partcipant["id"]}</Link>
+            )
+        }
+        else {
+          participants.push(
+
+            <p style={headerStyle}>{partcipant["id"]} </p>
+        );
+        }
+      }
+    }
+
     return (
       <div className="GameDetailPage">
-        <header className="App-header">
-          <h1>Game Detail Page</h1>
-          <p>{loading ? "" : `Game ID: ${gameInfo["id"]}`}</p>
+
+        <div className="Participants">
+          {participants}
+        </div>
+
+        <div className="GameInfo">
+          <p>Game Details</p>
+          <p>{loading ? "" : `Name: ${gameInfo["settings"]["name"]}`}</p>
           <p>{loading ? "" : `Admin: ${gameInfo["creatorId"]}`}</p>
           <p>
             {loading
@@ -117,30 +163,23 @@ class GameDetailView extends Component {
               ? ""
               : `Generation: ${gameInfo["settings"]["generationId"]}`}
           </p>
-          {
-            !loading &&
-            gameInfo && 
-            this.gameInRegistrationPhase() && 
-            !this.userInGame()
-              ?
-            <Button onClick={() => this.handleJoinGameClick()}>Join Game</Button>
-              :
-            null
-          }
-          {
-            !loading &&
-            gameInfo &&
-            this.userIsAdmin() &&
-            this.gameInRegistrationPhase()
-              ?
-            <Button onClick={() => this.handleStartGameClick()} >Start Game</Button>
-              :
-            null
-          }
-          <Link to="/" className="link">
-            Go Back to Home Page
-          </Link>
-        </header>
+          {!loading &&
+          gameInfo &&
+          this.gameInRegistrationPhase() &&
+          !this.userInGame() ? (
+            <Button onClick={() => this.handleJoinGameClick()}>
+              Join Game
+            </Button>
+          ) : null}
+          {!loading &&
+          gameInfo &&
+          this.userIsAdmin() &&
+          this.gameInRegistrationPhase() ? (
+            <Button onClick={() => this.handleStartGameClick()}>
+              Start Game
+            </Button>
+          ) : null}
+        </div>
       </div>
     );
   }
