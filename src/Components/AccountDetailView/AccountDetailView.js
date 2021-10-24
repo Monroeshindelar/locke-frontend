@@ -3,7 +3,7 @@ import "./AccountDetailView.css";
 import { Link } from "react-router-dom";
 import { DISCORD_AVATAR_BASE_URL } from "../../constants";
 import { getGamesByUserId } from "../../Utilities/GameServiceApiUtils";
-import { Table } from "reactstrap";
+import { Table } from "react-bootstrap";
 import { GAME_DETAIL_VIEW_PATH } from "../../constants";
 import { getAvatarUrl } from "../../Utilities/UserUtils"; 
 

@@ -9,3 +9,4 @@ export const ACCOUNT_DETAIL_VIEW_PATH = "/accounts/me";
 export const GAME_DETAIL_VIEW_PATH = "/game";
 export const GAME_CREATION_CONFIGURATION_PATH = "/game/create";
 export const GAME_PARTICIPANT_DETAIL_VIEW_PATH = "/game/participant";
+export const GAME_BROWSER_VIEW_PATH = "/browse"
