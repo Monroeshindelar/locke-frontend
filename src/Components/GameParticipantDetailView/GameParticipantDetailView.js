@@ -47,8 +47,7 @@ class GameParticipantDetailView extends Component {
 
     return (
       <div className="GameParticipantView">
-        <header className="App-header">
-          <h1>Game Participant Page</h1>
+        <div className="App-header">
           <p>
             {loading
               ? ""
@@ -68,12 +67,8 @@ class GameParticipantDetailView extends Component {
                     : "_placholder"
                 }`}
           </p>
-
-          <Link to="/" className="link">
-            Go Back to Home Page
-          </Link>
-        </header>
-      </div>
+        </div>
+        </div>
     );
   }
 }

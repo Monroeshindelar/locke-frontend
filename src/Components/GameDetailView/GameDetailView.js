@@ -6,6 +6,7 @@ import { Button } from "reactstrap";
 import { joinGame, startGame } from "../../Utilities/GameServiceApiUtils";
 import { GAME_PARTICIPANT_DETAIL_VIEW_PATH } from "../../constants/index.js";
 
+
 class GameDetailView extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,10 @@ class GameDetailView extends Component {
             gameData: await getGameInfo(this.props.location.state.gameId),
           });
         } catch (err) {
-          console.log("Could not set State: gameData and/or participantData", err);
+          console.log(
+            "Could not set State: gameData and/or participantData",
+            err
+          );
         }
       })();
     }
@@ -104,39 +108,32 @@ class GameDetailView extends Component {
     };
 
     const participants = [];
-    participants.push(
-      <p>Participants</p>
-    )
+    participants.push(<p>Participants</p>);
     if (gameInfo) {
       for (var p in gameInfo["participants"]) {
         var partcipant = gameInfo["participants"][p];
         console.log(partcipant);
-        if(partcipant["id"] === this.props.user.principalId) {
-            participants.push(
-              <Link style={headerStyle} to={{
-                pathname: GAME_PARTICIPANT_DETAIL_VIEW_PATH,
-                state: { 
-                  gameId: this.state.gameData["id"],
-                  participantId: this.props.user.principalId,
-                 },
-              }}>{partcipant["id"]}</Link>
-            )
-        }
-        else {
-          participants.push(
-
-            <p style={headerStyle}>{partcipant["id"]} </p>
+        participants.push(
+          <Link
+            style={headerStyle}
+            to={{
+              pathname: GAME_PARTICIPANT_DETAIL_VIEW_PATH,
+              state: {
+                gameId: this.state.gameData["id"],
+                participantId: this.props.user.principalId,
+              },
+            }}
+          >
+            {partcipant["id"]}
+            <p>{partcipant["playerState"]}</p>
+          </Link>
         );
-        }
       }
     }
 
     return (
       <div className="GameDetailPage">
-
-        <div className="Participants">
-          {participants}
-        </div>
+        <div className="Participants">{participants}</div>
 
         <div className="GameInfo">
           <p>Game Details</p>
