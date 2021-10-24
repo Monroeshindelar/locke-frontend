@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./GameParticipantDetailView.css";
 import { Link } from "react-router-dom";
-import { getParticipantInfo } from "../../Utilities/GameServiceApiUtils";
+import {
+  getParticipantInfo,
+  readyParticipant,
+} from "../../Utilities/GameServiceApiUtils";
+import { Button } from "reactstrap";
 
 class GameParticipantDetailView extends Component {
   constructor(props) {
@@ -57,6 +61,16 @@ class GameParticipantDetailView extends Component {
                     : "Ready"
                 }`}
           </p>
+          <Button
+            onClick={() =>
+              readyParticipant(
+                this.props.location.state.gameId,
+                this.props.location.state.participantId
+              )
+            }
+          >
+            Ready Up
+          </Button>
           <p>{loading ? "" : `Seed: ${participantInfo["seed"]}`}</p>
           <p>
             {loading
@@ -68,7 +82,7 @@ class GameParticipantDetailView extends Component {
                 }`}
           </p>
         </div>
-        </div>
+      </div>
     );
   }
 }
