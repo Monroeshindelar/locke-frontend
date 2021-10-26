@@ -59,7 +59,6 @@ class GameDetailView extends Component {
     if (!this.props.user || !this.state.gameData || !this.gameInRegistrationPhase())
       return;
 
-    console.log("HERE!");
     joinGame(this.state.gameData.id, this.props.user.principalId)
     .then((response) => {
       this.setState({
