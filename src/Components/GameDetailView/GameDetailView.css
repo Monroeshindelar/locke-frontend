@@ -45,9 +45,8 @@
   }
 }
 
-.link {
-  color: #61dafb;
-}
-.link:hover {
-  color: aquamarine;
+.participantAvis {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 }

@@ -7,7 +7,6 @@ export const createGame = (userId, settings) => {
   const data = settings;
   //const headers = {};
   var headers = getAuthorizationHeader();
-  //console.log(data);
   return axios
     .put(
       `${API_BASE_URL}/games/squadlocke/create?participantId=${userId}`,
@@ -58,7 +57,6 @@ export const getGamesByUserId = (userId) => {
   return axios
     .get(`${API_BASE_URL}/games/squadlocke/by-userid/${userId}`, { headers })
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((err) => {
@@ -76,7 +74,6 @@ export const joinGame = (gameId, userId) => {
       { headers }
     )
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((err) => {
@@ -89,7 +86,6 @@ export const startGame = (gameId) => {
   return axios
     .post(`${API_BASE_URL}/games/squadlocke/${gameId}/start`, null, { headers })
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((err) => {
@@ -105,7 +101,6 @@ export const getJoinableGames = (userId) => {
       headers,
     })
     .then((response) => {
-      console.log(response);
       return response.data;
     })
     .catch((err) => {
