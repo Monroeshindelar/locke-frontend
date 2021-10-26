@@ -67,15 +67,13 @@ class GameDetailView extends Component {
     )
       return;
 
-    console.log("HERE!");
-    joinGame(this.state.gameData.id, this.props.user.principalId).then(
-      (response) => {
-        this.setState({
-          gameData: response,
-        });
-      }
-    );
-  };
+    joinGame(this.state.gameData.id, this.props.user.principalId)
+    .then((response) => {
+      this.setState({
+        gameData: response
+      });
+    })
+  }
 
   handleStartGameClick() {
     if (

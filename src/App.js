@@ -1,23 +1,21 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom"
-import Home from "./Components/Home/Home"
-import GameDetailView from "./Components/GameDetailView/GameDetailView"
+import { Component } from "react";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom"
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';  
+import "./App.css"
 import AccountDetailView from "./Components/AccountDetailView/AccountDetailView"
+import GameDetailView from "./Components/GameDetailView/GameDetailView"
 import GameParticipantDetailView from "./Components/GameParticipantDetailView/GameParticipantDetailView";
+import GameCreationView from "./Components/GameCreationView/GameCreationView";
+import GameBrowserView from "./Components/GameBrowserView/GameBrowserView";
+import Home from "./Components/Home/Home"
 import OAuth2RedirectHandler from "./Components/OAuth2RedirectHandler";
 import PrivateRoute from "./Common/PrivateRoute";
 import { isAuthenticated, getAuthenticatedUser } from "./Utilities/AuthServiceApiUtils";
 import { withProps } from "./Utilities/Utils"
-import { Component } from "react";
-import GameCreationView from "./Components/GameCreationView/GameCreationView";
-import { ACCOUNT_DETAIL_VIEW_PATH, GAME_DETAIL_VIEW_PATH, GAME_CREATION_CONFIGURATION_PATH, GAME_PARTICIPANT_DETAIL_VIEW_PATH, GAME_BROWSER_VIEW_PATH } from "./constants";
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { ACCESS_TOKEN_NAME, ACCOUNT_DETAIL_VIEW_PATH, DISCORD_AUTH_URL, GAME_DETAIL_VIEW_PATH, GAME_CREATION_CONFIGURATION_PATH, 
+  GAME_PARTICIPANT_DETAIL_VIEW_PATH, GAME_BROWSER_VIEW_PATH, } from "./constants";
 import { getUsernameWithDiscriminator } from "./Utilities/AuthServiceApiUtils";
-import { DISCORD_AUTH_URL } from "./constants";
 import { getAvatarUrl } from "./Utilities/UserUtils"
-import { ACCESS_TOKEN_NAME } from "./constants";
-import "./App.css"
-import GameBrowserView from "./Components/GameBrowserView/GameBrowserView";
-import { Link } from "react-router-dom";
 
 
 class App extends Component {
