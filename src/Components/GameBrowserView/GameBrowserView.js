@@ -18,11 +18,9 @@ class GameBrowserView extends Component {
     if (!this.state.games) {
       (async () => {
         try {
-          if (this._isMounted) {
-            this.setState({
-              games: await getJoinableGames(this.props.location.state.account),
-            });
-          }
+          this.setState({
+            games: await getJoinableGames(this.props.location.state.account),
+          });
         } catch (err) {
           console.log("Could not set State: games", err);
         }
