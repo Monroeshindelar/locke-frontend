@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getGameInfo } from "../../Utilities/GameServiceApiUtils";
 import { Button } from "reactstrap";
 import { joinGame, startGame } from "../../Utilities/GameServiceApiUtils";
-import { GAME_PARTICIPANT_DETAIL_VIEW_PATH } from "../../constants/index.js";
+import { GAME_PARTICIPANT_DETAIL_VIEW_PATH, JOIN_GAME_VIEW_PATH } from "../../constants/index.js";
 import { getAvatarUrl } from "../../Utilities/UserUtils.js";
 import { getUser } from "../../Utilities/AuthServiceApiUtils.js";
 
@@ -189,9 +189,20 @@ class GameDetailView extends Component {
           gameInfo &&
           this.gameInRegistrationPhase() &&
           !this.userInGame() ? (
-            <Button onClick={() => this.handleJoinGameClick()}>
-              Join Game
-            </Button>
+            // <Button onClick={() => this.handleJoinGameClick()}>
+            //   Join Game
+            // </Button>
+            <Link
+              className="btn btn-primary"
+              to={{
+                pathname: JOIN_GAME_VIEW_PATH,
+                state: {
+                  game: this.state.gameData,
+                  userId: this.props.user.principalId
+                }
+              }}>
+                Join
+              </Link>
           ) : null}
           {!loading &&
           gameInfo &&

@@ -28,6 +28,7 @@ import {
 } from "./constants";
 import { getUsernameWithDiscriminator } from "./Utilities/UserUtils";
 import { getAvatarUrl } from "./Utilities/UserUtils";
+import JoinView from "./Components/JoinView/JoinView";
 
 class App extends Component {
   constructor(props) {
@@ -180,6 +181,11 @@ class App extends Component {
             path="/encounter"
             exact
             component={EncounterView}
+          />
+          <Route
+            path="/join"
+            exact
+            component={JoinView}
           />
           <Route
             path="/oauth2/redirect"

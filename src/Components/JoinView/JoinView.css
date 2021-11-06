@@ -1,0 +1,60 @@
+.joinView {
+    background-color: #36393f;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.gameImage {
+    /* height: 200px; */
+    width: 300px;
+}
+
+.gameImageContainer {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.starterImage {
+    /* width: 200px; */
+    max-width: 100%;
+    height: 90%;
+}
+
+.header {
+    text-align: center;
+}
+
+.starterBackground {
+    border-radius: 15px;
+    background-color: #2f3136;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 225px;
+    height: 225px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.selectionRow {
+    margin-bottom: 10px;
+}
+
+.selectedComponent {
+    border: 1px solid green;
+}
+
+.gameBackground {
+    border-radius: 15px;
+    background-color: #2f3136;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 350px;
+    height: 350px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.joinButton {
+    width: 100px;
+}

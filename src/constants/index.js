@@ -11,3 +11,4 @@ export const GAME_CREATION_CONFIGURATION_PATH = "/game/create";
 export const GAME_PARTICIPANT_DETAIL_VIEW_PATH = "/game/participant";
 export const GAME_BROWSER_VIEW_PATH = "/browse"
 export const ENCOUNTER_VIEW_PATH = "/encounter"
+export const JOIN_GAME_VIEW_PATH = "/join"

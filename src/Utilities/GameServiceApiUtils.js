@@ -64,12 +64,12 @@ export const getGamesByUserId = (userId) => {
     });
 };
 
-export const joinGame = (gameId, userId) => {
+export const joinGame = (gameId, userId, versionId, starterId) => {
   var headers = getAuthorizationHeader();
 
   return axios
     .post(
-      `${API_BASE_URL}/games/squadlocke/${gameId}/join?participantId=${userId}`,
+      `${API_BASE_URL}/games/squadlocke/${gameId}/join?participantId=${userId}&versionId=${versionId}&starterId=${starterId}`,
       null,
       { headers }
     )
