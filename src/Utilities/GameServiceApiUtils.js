@@ -140,3 +140,113 @@ export const readyParticipant = (gameId, participantId) => {
       console.error("POST request error: Unable to ready participant", err);
     });
 };
+
+export const getEncounter = (gameId, participantId, locationId, encounterMode, filterSpeciesClause = false) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .post(
+      `${API_BASE_URL}/games/squadlocke/${gameId}/encounter?participantId=${participantId}&locationId=${locationId}&encounterMode=${encounterMode}&filterSpeciesClause=${filterSpeciesClause}`,
+      null,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("POST request error: Unable to get encounter", err);
+    })
+}
+
+export const getAllEncountersForLocation = (generationId, locationId, gameId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .get(
+      `${API_BASE_URL}/encounters/${generationId}/${locationId}?gameId=${gameId}`,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("GET request error: Unable to get all encounters for location", err);
+    })
+}
+
+export const getGenerationInfo = (generationId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .get(
+      `${API_BASE_URL}/generations/${generationId}`,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("GET request error: Unable to get generation info", err);
+    })
+}
+
+export const getEncounterModesForLocation = (generationId, locationId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .get(
+      `${API_BASE_URL}/encounters/${generationId}/${locationId}/modes/all`,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("GET request error: Unable to get generation info", err);
+    })
+}
+
+export const updateEncounter = (gameId, participantId, locationId, nickname, abilityIndex, nature, gender, isShiny) => {
+  var url = `${API_BASE_URL}/games/squadlocke/${gameId}/encounter/update?participantId=${participantId}&locationId=${locationId}&nickname=${nickname}&abilityIndex=${abilityIndex}&nature=${nature}&gender=${gender}&isShiny=${isShiny}`;
+
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .post(
+      url,
+      null,
+      { headers }
+    )
+    .then((response) => {
+      console.log(response)
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+}
+
+function sendRequest(url, method, data = null) {
+  var headers = getAuthorizationHeader();
+
+  var request = {
+    method: method,
+    url: url,
+    headers: headers
+  }
+
+  if(data) {
+    request.data = data;
+  }
+
+  console.log(request)
+
+  return axios(request)
+  .then((response) => {
+    return response.data;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}

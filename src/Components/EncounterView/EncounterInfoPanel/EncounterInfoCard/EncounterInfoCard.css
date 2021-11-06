@@ -1,0 +1,46 @@
+.encounterCard {
+    background-color: #2f3136 !important;
+    border-radius: 15px !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    width: 200px;
+}
+
+.encounterImage {
+    margin: 20px;
+    height: 150px;
+    max-width: 100%
+}
+
+.encounterImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameTitle {
+    font-size: 25px;
+}
+
+.typeCol {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.typeImage {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.encounterInfo {
+    margin-bottom: 5px
+}
+
+.type {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Image, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import "./App.css";
 import AccountDetailView from "./Components/AccountDetailView/AccountDetailView";
+import EncounterView from "./Components/EncounterView/EncounterView";
 import GameDetailView from "./Components/GameDetailView/GameDetailView";
 import GameParticipantDetailView from "./Components/GameParticipantDetailView/GameParticipantDetailView";
 import GameCreationView from "./Components/GameCreationView/GameCreationView";
@@ -23,6 +24,7 @@ import {
   GAME_CREATION_CONFIGURATION_PATH,
   GAME_PARTICIPANT_DETAIL_VIEW_PATH,
   GAME_BROWSER_VIEW_PATH,
+  ENCOUNTER_VIEW_PATH,
 } from "./constants";
 import { getUsernameWithDiscriminator } from "./Utilities/UserUtils";
 import { getAvatarUrl } from "./Utilities/UserUtils";
@@ -73,75 +75,74 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-        <Navbar bg="primary" variant="dark">
+        <header className="bg-dark ">
           <Container>
-            <Navbar.Brand className="brandHeader">Locke Webapp</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            {this.state.user ? (
-              <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="me-auto">
-                  {/* <Nav.Link href={GAME_CREATION_CONFIGURATION_PATH}>Create Game</Nav.Link> */}
-                  <Link
-                    className="nav-link"
-                    to={{
-                      pathname: GAME_CREATION_CONFIGURATION_PATH,
-                      state: { account: this.state.user.principalId },
-                    }}
-                  >
-                    Create Game
-                  </Link>
-                  {/* <Nav.Link href={GAME_BROWSER_VIEW_PATH}>Browse Games</Nav.Link> */}
-                  <Link
-                    className="nav-link"
-                    to={{
-                      pathname: GAME_BROWSER_VIEW_PATH,
-                      state: { account: this.state.user.principalId },
-                    }}
-                  >
-                    Browse Games
-                  </Link>
-                </Nav>
-              </Navbar.Collapse>
-            ) : (
-              ""
-            )}
-            <Navbar.Collapse className="justify-content-end">
+            <Navbar bg="dark" variant="dark" expand="md">
+              <Navbar.Brand className="brandHeader">Locke Webapp</Navbar.Brand>
+              <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               {this.state.user ? (
-                <div className="userCard">
-                  {/* <Navbar.Text>{getUsernameWithDiscriminator(this.state.user)}</Navbar.Text> */}
-                  <NavDropdown
-                    title={getUsernameWithDiscriminator(this.state.user)}
-                  >
-                    <NavDropdown.Item>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                  <Nav as="ul">
+                    <Nav.Item as="li">
                       <Link
-                        style={{ textDecoration: "none", color: "black" }}
+                        className="nav-link"
                         to={{
-                          pathname: ACCOUNT_DETAIL_VIEW_PATH,
-                        }}
-                      >
-                        Profile
+                          pathname: GAME_CREATION_CONFIGURATION_PATH,
+                          state: { account: this.state.user.principalId }
+                        }}>
+                        Create Game
                       </Link>
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="/" onClick={() => this.logout()}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <img
-                    className="userAvatar"
-                    src={getAvatarUrl(this.state.user)}
-                    alt="#"
-                    width="50"
-                    height="50"
-                  />
-                </div>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Link
+                        className="nav-link"
+                        to={{
+                          pathname: GAME_BROWSER_VIEW_PATH,
+                          state: { account: this.state.user.principalId }
+                        }}>
+                        Browse Games
+                      </Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Link
+                        className="nav-link"
+                        to={{
+                          pathname: ENCOUNTER_VIEW_PATH,
+                          state: { account: this.state.user.principalId }
+                        }}>
+                        Encounter
+                      </Link>
+                    </Nav.Item>
+                  </Nav>
+                </Navbar.Collapse>
               ) : (
-                <a href={DISCORD_AUTH_URL} className="btn btn-primary">
-                  Log in with Discord
-                </a>
+                ""
               )}
-            </Navbar.Collapse>
+              <Navbar.Collapse className="responsive-navbar-nav justify-content-end">
+                {
+                  this.state.user
+                  ?
+                    <div className="userCard">
+                      <NavDropdown title={getUsernameWithDiscriminator(this.state.user)}>
+                        <NavDropdown.Item as={Link} to={{
+                          pathname: ACCOUNT_DETAIL_VIEW_PATH,
+                          state: { account: this.state.user.principalId }
+                        }}>
+                          Profile
+                        </NavDropdown.Item>
+                        <NavDropdown.Item href="/" onClick={ () => this.logout() }>
+                          Logout
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <Image className="userAvatar" src={ getAvatarUrl(this.state.user) } alt="User Avatar" />
+                    </div>
+                  :
+                    <Nav.Link href={DISCORD_AUTH_URL}>Login with Discord</Nav.Link>
+                }
+              </Navbar.Collapse>
+          </Navbar>
           </Container>
-        </Navbar>
+        </header>
         <Switch>
           <Route
             path="/"
@@ -174,6 +175,11 @@ class App extends Component {
             path={GAME_BROWSER_VIEW_PATH}
             exact
             component={GameBrowserView}
+          />
+          <Route
+            path="/encounter"
+            exact
+            component={EncounterView}
           />
           <Route
             path="/oauth2/redirect"
