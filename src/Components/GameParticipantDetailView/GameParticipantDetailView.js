@@ -1,34 +1,48 @@
 import React, { Component } from "react";
 import "./GameParticipantDetailView.css";
+import {
+  getGameInfo,
+  getGenerationInfo,
+  getParticipantInfo,
+  readyParticipant,
+} from "../../Utilities/GameServiceApiUtils";
 import { Link } from "react-router-dom";
-import { getParticipantInfo } from "../../Utilities/GameServiceApiUtils";
+import { Col, Container, Row, Image, Card } from "react-bootstrap";
+import Box from "./Box";
+import { prettyEnum } from '../../Utilities/Utils'; 
+import MiniTeamView from "./MiniTeamView";
 
 class GameParticipantDetailView extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
-      participantData: null,
+      participant: null,
+      generationInfo: null
     };
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   async componentDidMount() {
-    if (!this.state.participantData) {
+    this._isMounted = true;
+    if (!this.state.participant) {
       (async () => {
+        let game = await getGameInfo(this.props.location.state.gameId);
+        let p = await getParticipantInfo(this.props.location.state.gameId, this.props.location.state.participantId);
+        let gen = await getGenerationInfo(game.settings.generationId);
+
         try {
-          this.setState(
-            {
-              participantData: await getParticipantInfo(
-                "61132d11d8ccfb5238c2c25a",
-                "285699164879192065"
-              ),
-            },
-            function () {
-              console.log(
-                "Participant setState Completed:",
-                this.state.participantData
-              );
-            }
-          );
+          if (this._isMounted) {
+            this.setState({
+                participant: p,
+                generationInfo: gen.games[p.gameId]
+              }
+            );
+          }
         } catch (err) {
           console.log("Could not set State: participantData", err);
         }
@@ -36,43 +50,116 @@ class GameParticipantDetailView extends Component {
     }
   }
 
+  isReady() {
+    if (!this.state.participant) return false;
+
+    return this.state.participant.playerState === "READY";
+  }
+
   render() {
     // Load participant data with state
-    if (this.state.participantData === null) {
+    if (this.state.participant === null) {
       var loading = true;
     } else {
       loading = false;
-      var participantInfo = this.state.participantData;
+      var participantInfo = this.state.participant;
     }
 
-    return (
-      <div className="GameParticipantView">
-        <header className="App-header">
-          <h1>Game Participant Page</h1>
-          <p>
-            {loading
-              ? ""
-              : `Status: ${
-                  participantInfo["playerState"] === "NOT_READY"
-                    ? "Not Ready"
-                    : "Ready"
-                }`}
-          </p>
-          <p>{loading ? "" : `Seed: ${participantInfo["seed"]}`}</p>
-          <p>
-            {loading
-              ? ""
-              : `Immunity Slot: ${
-                  participantInfo["immunitySlot"] === null
-                    ? "Not Selected"
-                    : "_placholder"
-                }`}
-          </p>
 
-          <Link to="/" className="link">
-            Go Back to Home Page
-          </Link>
-        </header>
+    return (
+      <div className="gameParticipantDetailView">
+        <Container className="mainContent">
+          <Row>
+            {/* Participant info */}
+            <Col xl={5} className="leftPanel">
+              <Row>
+                <Col sm={6} className="playerStatePanel">
+                  <Card className="playerStateCard">
+                    <Card.Header>Player Status</Card.Header>
+                    <Card.Body>
+                      <Card.Title>State</Card.Title>
+                      <Card.Text 
+                        className={
+                          this.isReady()
+                            ?
+                              "readyText"
+                            :
+                              "notReadyText"
+                        }
+                      >
+                        {
+                          participantInfo
+                            ?
+                              prettyEnum(participantInfo.playerState)
+                            :
+                              ""
+                        }
+                      </Card.Text>
+                      <Card.Title>Seed</Card.Title>
+                      <Card.Text>
+                        {
+                          participantInfo
+                            ?
+                              participantInfo.seed
+                            :
+                              ""
+                        }
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col sm={6} xl={6} className="gameInfoPanel">
+                  <Image 
+                    src={
+                      this.state.generationInfo
+                        ?
+                          `${process.env.PUBLIC_URL}/assets/${this.state.generationInfo.imageUrl}`
+                        :
+                          ""
+                    }
+                    alt=""
+                    height="200px"
+                  />
+                </Col>
+              </Row>
+              {/* <Row>
+                <Container>
+                  <Row>
+                    <Col className="boxLabel"><h3>My Team</h3></Col>
+                  </Row>
+                  <Row>
+                    {
+                      participantInfo
+                        ?
+                          <MiniTeamView team={participantInfo.team}/>
+                        :
+                          ""
+                    }
+                  </Row>
+                </Container>
+              </Row> */}
+            </Col>
+            {/* Box */}
+            <Col xl={7} xs={12} className="boxPanel">
+              <Row>
+                <Col className="boxLabel"><h3>My Box</h3></Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Box contents=
+                    {
+                      participantInfo
+                        ?
+                          participantInfo.box.contents
+                        :
+                          null
+                    }
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

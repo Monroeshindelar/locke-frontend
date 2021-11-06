@@ -1,0 +1,47 @@
+.encounterPopupContent {
+    background-color: #2f3136;
+    color: white
+}
+
+.encounterPopupImage {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    max-width: 100%;
+}
+
+.popupImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.buttonContainer>button,
+.buttonContainer>a {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.typeBackground {
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.popupTypeBackground {
+    width: 30px;
+    height: 30px;
+}
+
+.popupHeader {
+    display: flex;
+    align-items: center;
+}
+
+.infoContainer {
+    margin-bottom: 10px;
+}

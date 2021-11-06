@@ -32,6 +32,7 @@ export const getAuthenticatedUser = () => {
  * Gets a users public info
  * Properties:
  * - username
+ * - discriminator
  * - avatar
  */
 export const getUser = (userId) => {
