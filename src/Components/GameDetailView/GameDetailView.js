@@ -130,8 +130,8 @@ class GameDetailView extends Component {
                       <Row>
                         <Link
                           to={{
-                            pathname=JOIN_GAME_VIEW_PATH,
-                            state={
+                            pathname: JOIN_GAME_VIEW_PATH,
+                            state: {
                               game: this.state.gameData,
                               userId: this.props.user.principalId
                             }
