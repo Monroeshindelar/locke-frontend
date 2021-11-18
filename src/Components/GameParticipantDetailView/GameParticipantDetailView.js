@@ -65,6 +65,8 @@ class GameParticipantDetailView extends Component {
       var participantInfo = this.state.participant;
     }
 
+    console.log("participantInfo", participantInfo);
+
 
     return (
       <div className="gameParticipantDetailView">
@@ -122,7 +124,7 @@ class GameParticipantDetailView extends Component {
                   />
                 </Col>
               </Row>
-              {/* <Row>
+              <Row>
                 <Container>
                   <Row>
                     <Col className="boxLabel"><h3>My Team</h3></Col>
@@ -131,32 +133,40 @@ class GameParticipantDetailView extends Component {
                     {
                       participantInfo
                         ?
-                          <MiniTeamView team={participantInfo.team}/>
+                          <MiniTeamView team={participantInfo.team.mainTeam}/>
                         :
                           ""
                     }
                   </Row>
                 </Container>
-              </Row> */}
+              </Row>
             </Col>
             {/* Box */}
             <Col xl={7} xs={12} className="boxPanel">
-              <Row>
-                <Col className="boxLabel"><h3>My Box</h3></Col>
-              </Row>
-              <Row>
-                <Col>
-                  <Box contents=
-                    {
-                      participantInfo
-                        ?
-                          participantInfo.box.contents
-                        :
-                          null
-                    }
-                  />
-                </Col>
-              </Row>
+              {
+                participantInfo
+                  ? 
+                    <Row>
+                      <Col>
+                        <Box
+
+                          contents=
+                          {
+                            participantInfo
+                              ?
+                                participantInfo.box.contents
+                              :
+                                null
+                          }
+                          gameId={this.props.location.state.gameId}
+                          participantId={this.props.location.state.participantId}
+                          participant={this.state.participant}
+                        />
+                      </Col>
+                    </Row>
+                  :
+                    null
+            }
             </Col>
           </Row>
         </Container>

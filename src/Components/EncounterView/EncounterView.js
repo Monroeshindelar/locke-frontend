@@ -4,7 +4,7 @@ import { chunk, times } from 'lodash';
 import { Link } from "react-router-dom";
 
 import './EncounterView.css';
-import { getEncounter, getGenerationInfo, getAllEncountersForLocation, getEncounterModesForLocation, updateEncounter, getGamesByUserId, getGameInfo, getParticipantInfo } from '../../Utilities/GameServiceApiUtils';
+import { getEncounter, getGenerationInfo, getAllEncountersForLocation, getEncounterModesForLocation, updateEncounter, getGamesByUserId, getGameInfo, getParticipantInfo, getEncounterLocationsForGame } from '../../Utilities/GameServiceApiUtils';
 import { capitalizeWord, getPaddedDexNumber } from  '../../Utilities/Utils'
 import EncounterCard from './EncounterInfoPanel/EncounterInfoCard/EncounterInfoCard';
 import { ACCOUNT_DETAIL_VIEW_PATH, GAME_PARTICIPANT_DETAIL_VIEW_PATH } from "../../constants";
@@ -24,7 +24,9 @@ class EncounterView extends Component {
             modes: {},
             encounter: null,
             locationId: null,
-            availableEncounters: null
+            availableEncounters: null,
+            filterSpeciesClause: false,
+            locations: null
         }
     }
 
@@ -56,12 +58,12 @@ class EncounterView extends Component {
     async populateModes(locationId) {
         (async () => {
             try {
-            let modes = await getEncounterModesForLocation(this.state.generationInfo.generationId, locationId);
+            let modes = await getEncounterModesForLocation(this.state.generationInfo.generationId, locationId, this.state.participantInfo.gameId);
 
             let am = {};
 
             for(var m in modes) {
-                am[modes[m]] = false;
+                am[modes[m]] = true;
             }
 
             this.setState({
@@ -87,9 +89,18 @@ class EncounterView extends Component {
 
     async roll() {
         (async () => {
+            let modes = [];
+
+            for(var m in this.state.modes) {
+                if (this.state.modes[m]) {
+                    modes.push(m);
+                }
+            }
+
             try {
                 this.setState({
-                    encounter: await getEncounter(this.state.gameId, this.state.participantInfo.id, this.state.locationId, "MORNING", false)
+                    encounter: await getEncounter(this.state.gameId, this.state.participantInfo.id, this.state.locationId, modes.join(","), 
+                        this.state.filterSpeciesClause)
                 })
             } catch (err) {
                 console.log(err);
@@ -130,15 +141,23 @@ class EncounterView extends Component {
         this.roll();
     }
 
+    handleSpeciesClauseCheck(checked) {
+        this.setState({
+            filterSpeciesClause: checked
+        });
+    }
+
     async handleGameChange(gameId) {
         let gameInfo = await getGameInfo(gameId);
         let participantInfo = await getParticipantInfo(gameId, this.props.location.state.account);
         let generationInfo = await getGenerationInfo(gameInfo.settings.generationId);
+        let locations = await getEncounterLocationsForGame(gameInfo.settings.generationId, participantInfo.gameId);
 
         this.setState({
             participantInfo: participantInfo,
             generationInfo: generationInfo,
-            gameId: gameInfo.id
+            gameId: gameInfo.id,
+            locations: locations
         });
     }
 
@@ -156,10 +175,10 @@ class EncounterView extends Component {
         var locationOptions = [];
 
         if(this.state.generationInfo) {
-            let locations = this.filterEncounterLocations(this.state.generationInfo.encounters).sort();
+            let locations = this.filterEncounterLocations(this.state.locations).sort();
             for(var l in locations) {
                 locationOptions.push(
-                    <option>{locations[l]}</option>
+                    <option id={locations[l]}>{locations[l]}</option>
                 );
             }
         }
@@ -172,7 +191,9 @@ class EncounterView extends Component {
             let modeName = modes[m];
             modeCheckBoxes.push(
                 <Form.Check
+                    key={`${modeName}-mode-checkbox`}
                     type="checkbox"
+                    checked={this.state.modes[modeName]}
                     id={`${modeName}-mode-checkbox`}
                     label={capitalizeWord(modeName)}
                     onChange={(e) => this.handleModeCheckboxChange(e.target.checked, modeName)}
@@ -187,9 +208,9 @@ class EncounterView extends Component {
             for(var e in this.state.availableEncounters) {
                 var encounter = this.state.availableEncounters[e];
 
-                if(this.state.modes[encounter.mode]) {
+                if(this.state.modes[encounter.encounterMode]) {
                     encounters.push(
-                        <EncounterCard encounter={this.state.availableEncounters[e]} />
+                        <EncounterCard key={e} encounter={this.state.availableEncounters[e]} />
                     )
                 }
             }
@@ -237,6 +258,8 @@ class EncounterView extends Component {
                                     <Form.Check
                                         type="checkbox"
                                         id="filter-sc-checkbox"
+                                        checked={this.state.filterSpeciesClause}
+                                        onClick={(e) => this.handleSpeciesClauseCheck(e.target.checked)}
                                         label="Filter Species Clause"/>
                                 </Form>
                             </Row>

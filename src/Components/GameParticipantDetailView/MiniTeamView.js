@@ -20,7 +20,7 @@ class MiniTeamView extends Component {
            } catch (err) {}
 
            items.push(
-               <MiniTeamViewItem pokemon={pokemon} />
+               <MiniTeamViewItem key={pokemon} pokemon={pokemon} />
            )
         }
 

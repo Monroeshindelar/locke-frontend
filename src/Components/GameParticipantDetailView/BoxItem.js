@@ -5,13 +5,15 @@ import { Image } from 'react-bootstrap';
 import { getPaddedDexNumber } from '../../Utilities/Utils';
 import { getPokemonSpecies } from "../../Utilities/PokeApiUtils";
 import { times } from 'lodash';
+import ExpandedBoxItemPopup from './ExpandedBoxItemPopup';
 
 class BoxItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            speciesInfo: null
+            speciesInfo: null,
+            showExpandedInfo: false
         }
     }
 
@@ -23,6 +25,20 @@ class BoxItem extends Component {
                 })
             } catch (err) { }
         }
+    }
+
+    handleBoxClick() {
+        if (this.props.pokemon && this.state.speciesInfo) {
+            this.setState({
+                showExpandedInfo: true
+            });
+        }
+    }
+
+    handleExpandedModalClose = () => {
+        this.setState({
+            showExpandedInfo: false
+        });
     }
 
     getImageUrl() {
@@ -50,30 +66,67 @@ class BoxItem extends Component {
         return path;
     }
 
+    isOnTeam() {
+        if (this.props.participant && this.props.pokemon) {
+            for(var t in this.props.participant.team.mainTeam) {
+                let teamMember = this.props.participant.team.mainTeam[t];
+
+                if (this.props.pokemon.locationId === teamMember.locationId) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    isTeamFull() {
+        if (this.props.participant) {
+            return this.props.participant.team.mainTeam.length == 6;
+        }
+
+        return false;
+    }
+
     render() {
         let path = this.getImageUrl();
 
         return(
-            <div className="boxItemBackground">
-                {
-                    this.props.pokemon
-                        ?
-                            <Image 
-                                className={
-                                    !this.props.pokemon.alive
-                                    ?
-                                        "boxItemImage dead"
-                                    :
-                                        "boxItemImage"
-                                } 
-                                src={path}
-                                alt="" 
-                            />
-                        :
-                            ""
-                            
-                }
-            </div>
+            <>
+                <div 
+                    className="boxItemBackground"
+                    onClick={ () => this.handleBoxClick() }
+                >
+                    {
+                        this.props.pokemon
+                            ?
+                                <Image 
+                                    className={
+                                        !this.props.pokemon.alive
+                                        ?
+                                            "boxItemImage dead"
+                                        :
+                                            "boxItemImage"
+                                    } 
+                                    src={path}
+                                    alt="" 
+                                />
+                            :
+                                ""
+                                
+                    }
+                </div>
+                <ExpandedBoxItemPopup 
+                    show={this.state.showExpandedInfo} 
+                    pokemon={this.props.pokemon}
+                    gameId={this.props.gameId}
+                    participant={this.props.participant}
+                    isOnTeam={this.isOnTeam()}
+                    isTeamFull={this.isTeamFull()}
+                    itemNumber={this.props.itemNumber}
+                    close={this.handleExpandedModalClose}
+                />
+            </>
         );
     }
 }

@@ -20,6 +20,7 @@ class EncounterCard extends Component {
                 types.push(
                     <div className={divClass}>
                         <Image
+                            key={type}
                             className="typeImage"
                             src={`${process.env.PUBLIC_URL}/assets/pokemon-type-svg-icons/icons/${this.props.encounter.model.types[type].name}.svg`}
                             height="15px"
@@ -52,7 +53,7 @@ class EncounterCard extends Component {
                                 {
                                     this.props.encounter
                                         ?
-                                            prettyEnum(this.props.encounter.mode)
+                                            prettyEnum(this.props.encounter.encounterMode)
                                         :
                                             ""
                                 }
@@ -61,7 +62,7 @@ class EncounterCard extends Component {
                                 {
                                     this.props.encounter
                                         ?
-                                            `${(this.props.encounter.defaultEncounterRate * 100)}% encounter rate`
+                                            `${(this.props.encounter.defaultEncounterRate * 100).toFixed(0)}% encounter rate`
                                         :
                                             ""
                                 }

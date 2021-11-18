@@ -7,3 +7,8 @@
     width: 125px;
     height: 125px;
 }
+
+.teamImage {
+    max-width: 100%;
+    height: 100px;
+}

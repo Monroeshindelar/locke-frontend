@@ -13,3 +13,13 @@
     display: flex;
     justify-content: center;
 }
+
+.titleRow {
+    margin-bottom: 10px;
+}
+
+.forwardButtonCol {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}

@@ -1,0 +1,7 @@
+.participantList {
+    /* border: 1px solid #2f3136; */
+    border-radius: 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset; */
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

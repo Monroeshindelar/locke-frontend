@@ -10,3 +10,14 @@ export const getPokemonSpecies = (nationalDexNumber) =>  {
             console.log(err);
         });
 }
+
+export const getNature = (nature) => {
+    return axios
+        .get(`https://pokeapi.co/api/v2/nature/${nature}`)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}

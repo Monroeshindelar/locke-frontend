@@ -1,0 +1,11 @@
+.statBar {
+    margin-top: 5px;
+}
+
+.boostedStat {
+    color: green;
+}
+
+.reducedStat {
+    color: red;
+}

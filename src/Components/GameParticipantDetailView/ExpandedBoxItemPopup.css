@@ -1,0 +1,38 @@
+.expandedBoxItem {
+    height: 500px;
+    background-color: #2f3136;
+    color: white;
+}
+
+.expandedImage {
+    max-width: 100%;
+    height: 250px;
+}
+
+.typeBackground {
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.popupTypeBackground {
+    width: 30px;
+    height: 30px;
+}
+
+.popupHeader {
+    display: flex;
+    align-items: center;
+}
+
+.buttonCol>button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.closeButton {
+    float: right;
+}
+
+.contentRow {
+    margin-bottom: 10px;
+}

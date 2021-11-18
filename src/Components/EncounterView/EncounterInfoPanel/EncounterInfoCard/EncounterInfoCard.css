@@ -19,6 +19,7 @@
 
 .nameTitle {
     font-size: 25px;
+    white-space: nowrap;
 }
 
 .typeCol {

@@ -1,6 +1,6 @@
-import { chunk, isLength } from "lodash";
+import { chunk } from "lodash";
 import { Component } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row, Button } from "react-bootstrap";
 import BoxItem from "./BoxItem";
 
 import './Box.css'
@@ -16,7 +16,7 @@ class Box extends Component {
 
     handlePageBackwardClick() {
         if (this.props.contents) {
-            let maxPages = this.props.contents / 30;
+            let maxPages = Math.floor(this.props.contents.length / 30);
 
             let nextPage = this.state.pageNumber - 1 < 0 ? maxPages : this.state.pageNumber - 1;
 
@@ -28,7 +28,7 @@ class Box extends Component {
 
     handlePageForwardClick() {
         if (this.props.contents) {
-            let maxPages = this.props.contents / 30;
+            let maxPages = this.props.contents.length / 30;
 
             let nextPage = this.state.pageNumber + 1 >= maxPages ? 0 : this.state.pageNumber + 1;
 
@@ -40,17 +40,26 @@ class Box extends Component {
 
     render() {
         var items = [];
+        console.log(this.props.contents);
 
         for (var i = this.state.pageNumber * 30; i < (this.state.pageNumber * 30) + 30; i++) {
+            console.log(i)
             let pokemon = null;
 
             try {
                 pokemon = this.props.contents[i];
             } catch (err) { }
 
-            console.log(pokemon, i);
+            console.log(pokemon);
+
             items.push(
-                <BoxItem key={pokemon} pokemon={pokemon} />
+                <BoxItem 
+                    key={i} 
+                    itemNumber={i}
+                    pokemon={pokemon} 
+                    gameId={this.props.gameId}
+                    participant={this.props.participant}
+                />
             )
         }
 
@@ -58,6 +67,23 @@ class Box extends Component {
 
         return (
             <Container id="box" className="box">
+                <Row className="titleRow">
+                    <Col>
+                        <Button
+                            onClick={() => this.handlePageBackwardClick()}
+                        >
+                            Back
+                        </Button>
+                    </Col>
+                    <Col className="boxLabel"><h3>Box {this.state.pageNumber + 1}</h3></Col>
+                    <Col className="forwardButtonCol">
+                        <Button
+                            onClick={() => this.handlePageForwardClick()}
+                        >
+                            Forward
+                        </Button>
+                    </Col>
+                </Row>
                 {rows.map((cols, rowIndex) => (
                     <Row className="boxRow flex-nowrap" key={rowIndex}>
                         {cols.map((col, colIndex) => (

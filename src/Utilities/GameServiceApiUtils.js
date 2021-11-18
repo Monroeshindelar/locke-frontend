@@ -190,12 +190,12 @@ export const getGenerationInfo = (generationId) => {
     })
 }
 
-export const getEncounterModesForLocation = (generationId, locationId) => {
+export const getEncounterModesForLocation = (generationId, locationId, gameId) => {
   var headers = getAuthorizationHeader();
 
   return axios
     .get(
-      `${API_BASE_URL}/encounters/${generationId}/${locationId}/modes/all`,
+      `${API_BASE_URL}/encounters/${generationId}/${locationId}/modes/all?gameId=${gameId}`,
       { headers }
     )
     .then((response) => {
@@ -225,6 +225,73 @@ export const updateEncounter = (gameId, participantId, locationId, nickname, abi
       console.log(err);
     });
 
+}
+
+export const evolvePokemon = (gameId, participantId, locationId) => { 
+  var headers = getAuthorizationHeader();
+  
+  return axios
+    .post(
+      `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}/encounter/evolve?locationId=${locationId}`,
+      null,
+      { headers }
+    )
+    .then((response) => {
+      return response.data
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export const addPokemonToTeam = (gameId, participantId, locationId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .post(
+      `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}/team/add?locationId=${locationId}`,
+      null,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export const removePokemonFromTeam = (gameId, participantId, locationId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .post(
+      `${API_BASE_URL}/games/squadlocke/${gameId}/participants/${participantId}/team/remove?locationId=${locationId}`,
+      null,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+export const getEncounterLocationsForGame = (generationId, gameId) => {
+  var headers = getAuthorizationHeader();
+
+  return axios
+    .get(
+      `${API_BASE_URL}/encounters/${generationId}/locations/all?gameId=${gameId}`,
+      { headers }
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 }
 
 function sendRequest(url, method, data = null) {
