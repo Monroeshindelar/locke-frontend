@@ -140,6 +140,8 @@ class GameDetailView extends Component {
                           Join
                         </Link>
                       </Row>
+                    :
+                      null
                 }
               </Container>
             </Col>
