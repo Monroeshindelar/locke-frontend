@@ -8,6 +8,7 @@ import { getUser } from "../../Utilities/AuthServiceApiUtils.js";
 import { Container, Row, Col } from "react-bootstrap";
 import GameParticipantPanel from "./GameParticipantPanel";
 import AdminPanel from "./AdminPanel";
+import { isLength } from "lodash";
 
 class GameDetailView extends Component {
   constructor(props) {
@@ -122,6 +123,23 @@ class GameDetailView extends Component {
                       </Row>
                     :
                       null
+                }
+                {
+                  !this.userInGame() && this.state.gameData
+                    ?
+                      <Row>
+                        <Link
+                          to={{
+                            pathname=JOIN_GAME_VIEW_PATH,
+                            state={
+                              game: this.state.gameData,
+                              userId: this.props.user.principalId
+                            }
+                          }}
+                        >
+                          Join
+                        </Link>
+                      </Row>
                 }
               </Container>
             </Col>

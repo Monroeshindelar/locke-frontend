@@ -64,7 +64,6 @@ class JoinView extends Component {
         if (this.state.generationInfo) {
             for (var g in this.state.generationInfo.games) {
                 let game = this.state.generationInfo.games[g];
-                console.log(game);
 
                 gameImages.push(
                     <div 
