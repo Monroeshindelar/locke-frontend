@@ -139,6 +139,9 @@ class ExpandedBoxItemPopup extends Component {
             } 
         }
 
+        console.log(natureIdx);
+        console.log(abilityIdx);
+
         let abilityOptions = [];
 
         if (this.state.pokemon) {
