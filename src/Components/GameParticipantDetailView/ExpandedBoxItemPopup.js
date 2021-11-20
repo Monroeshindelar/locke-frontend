@@ -237,7 +237,7 @@ class ExpandedBoxItemPopup extends Component {
                                             <Form>
                                                 <Form.Label>Nature</Form.Label>
                                                 <Form.Select
-                                                    defaultValue={natureOptions[natureidx]}    
+                                                    defaultValue={natureOptions[natureIdx]}    
                                                 >
                                                     <option>--</option>
                                                     {natureOptions}
