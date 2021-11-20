@@ -106,6 +106,51 @@ class ExpandedBoxItemPopup extends Component {
             }
         }
 
+        let natures = ["Hardy", "Lonely", "Brave", "Adamant", "Naughty", "Bold", "Docile", "Relaxed", "Impish", "Lax", "Timid", "Hasty", 
+            "Serious", "Jolly", "Naive", "Modest", "Mild", "Quiet", "Bashful", "Rash", "Calm", "Gentle", "Sassy", "Careful", "Quirky"].sort();
+
+        let natureOptions = [];
+
+        for(var n in natures) {
+            var nature = natures[n];
+
+            natureOptions.push(
+                <option value={nature.toUpperCase()}>{nature}</option>
+            )
+        }
+
+        let natureIdx = 0;
+        let abilityIdx = 0;
+
+        if (this.state.pokemon) {
+            if (this.state.pokemon.nature) {
+                natureIdx = natures.indexOf(capitalizeWord(this.state.pokemon.nature)) + 1;
+            }
+
+            if (this.state.pokemon.ability) {
+                let ability = this.state.pokemon.ability.name;
+                for(var a in this.state.pokemon.model.abilities) {
+                    let current = this.state.pokemon.model.abilities[a].name;
+                    if (current === ability) {
+                        abilityIdx = a + 1;
+                        break;
+                    }
+                }
+            } 
+        }
+
+        let abilityOptions = [];
+
+        if (this.state.pokemon) {
+            for(var a in this.state.pokemon.model.abilities) {
+                var ability = this.state.pokemon.model.abilities[a].name;
+
+                abilityOptions.push(
+                    <option value={ability}>{ability}</option>
+                )
+            }
+        }
+
         return(
             <Modal
                 id={`${this.props.itemNumber}-ebip`}
@@ -159,7 +204,6 @@ class ExpandedBoxItemPopup extends Component {
                                             >
                                                 X
                                             </Button>
-                                            {/* <CloseButton className="closeButton" onClick={() => this.props.close} /> */}
                                         </Col>
                                     </Row>
                                     <Row className="contentRow">
@@ -185,14 +229,18 @@ class ExpandedBoxItemPopup extends Component {
                                                 <Form.Label>Ability</Form.Label>
                                                 <Form.Select>
                                                     <option>--</option>
+                                                    {abilityOptions}
                                                 </Form.Select>
                                             </Form>
                                         </Col>
                                         <Col>
                                             <Form>
                                                 <Form.Label>Nature</Form.Label>
-                                                <Form.Select>
+                                                <Form.Select
+                                                    defaultValue={natureOptions[natureidx]}    
+                                                >
                                                     <option>--</option>
+                                                    {natureOptions}
                                                 </Form.Select>
                                             </Form>
                                         </Col>                                 
