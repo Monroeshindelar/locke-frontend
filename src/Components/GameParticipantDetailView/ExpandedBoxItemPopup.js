@@ -124,6 +124,8 @@ class ExpandedBoxItemPopup extends Component {
 
         if (this.state.pokemon) {
             if (this.state.pokemon.nature) {
+                console.log(capitalizeWord(this.state.pokemon.nature))
+                console.log(natures.indexOf(capitalizeWord(this.state.pokemon.nature)))
                 natureIdx = natures.indexOf(capitalizeWord(this.state.pokemon.nature)) + 1;
             }
 
